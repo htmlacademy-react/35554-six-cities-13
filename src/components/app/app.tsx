@@ -26,7 +26,7 @@ function App({cardsCount}: AppPageProps): JSX.Element {
           }
         />
         <Route path={AppRoute.Offers} element={<OfferScreen />} />
-        <Route path={'*'} element={<NotFoundScreen />} />
+        <Route path={AppRoute.Other} element={<NotFoundScreen />} />
       </Routes>
     </BrowserRouter>
   );
