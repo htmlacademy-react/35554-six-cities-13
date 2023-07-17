@@ -1,11 +1,13 @@
 import PlaceCard from '../../components/place-card/place-card';
 import Header from '../../components/header/header';
+import {offers} from "../../mocks/offers";
 
 type MainPageProps = {
   cardsCount: number;
 }
 
 function MainPage({cardsCount}: MainPageProps): JSX.Element {
+  console.log(offers);
   return (
     <div className="page page--gray page--main">
       <Header />
