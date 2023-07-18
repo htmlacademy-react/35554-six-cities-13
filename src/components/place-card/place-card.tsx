@@ -1,16 +1,20 @@
-import {Offer} from "../../types/offer";
+import {Offer} from '../../types/offer';
 
 type PlaceCardProps = {
-  key: string;
+  keyOffer: string;
   item: Offer;
 };
 
-function PlaceCard({key, item}: PlaceCardProps): JSX.Element {
+function PlaceCard({keyOffer, item}: PlaceCardProps): JSX.Element {
+  console.log(keyOffer)
   return (
     <article className="cities__card place-card">
-      <div className="place-card__mark">
-        <span>Premium</span>
-      </div>
+      {item.isPremium ?
+        <div className="place-card__mark">
+          <span>Premium</span>
+        </div>
+        : ''}
+
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="#">
           <img className="place-card__image" src={item.previewImage} width={260} height={200} alt="Place image"/>

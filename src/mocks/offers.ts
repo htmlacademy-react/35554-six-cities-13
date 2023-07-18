@@ -19,7 +19,7 @@ export const offers: Offers = [
       zoom: 8
     },
     isFavorite: false,
-    isPremium: false,
+    isPremium: true,
     rating: 4,
     previewImage: 'img/apartment-01.jpg'
   },
