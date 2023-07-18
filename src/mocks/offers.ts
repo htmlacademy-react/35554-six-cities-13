@@ -4,7 +4,7 @@ export const offers: Offers = [
   {
     id: crypto.randomUUID(),
     title: 'Beautiful & luxurious studio at great location',
-    type: 'apartment',
+    type: 'Apartment',
     price: 120,
     city: {
       name: 'Amsterdam',
@@ -21,12 +21,12 @@ export const offers: Offers = [
     isFavorite: false,
     isPremium: false,
     rating: 4,
-    previewImage: 'https://url-to-image/image.png'
+    previewImage: 'img/apartment-01.jpg'
   },
   {
     id: crypto.randomUUID(),
     title: 'Wood and stone place',
-    type: 'room',
+    type: 'Private Room',
     price: 90,
     city: {
       name: 'Amsterdam',
@@ -43,12 +43,12 @@ export const offers: Offers = [
     isFavorite: true,
     isPremium: false,
     rating: 4,
-    previewImage: 'https://url-to-image/image.png'
+    previewImage: 'img/apartment-02.jpg'
   },
   {
     id: crypto.randomUUID(),
     title: 'Canal View Prinsengracht',
-    type: 'house',
+    type: 'House',
     price: 100,
     city: {
       name: 'Amsterdam',
@@ -65,12 +65,12 @@ export const offers: Offers = [
     isFavorite: false,
     isPremium: false,
     rating: 3,
-    previewImage: 'https://url-to-image/image.png'
+    previewImage: 'img/apartment-03.jpg'
   },
   {
     id: crypto.randomUUID(),
     title: 'Nice, cozy, warm big bed apartment',
-    type: 'hotel',
+    type: 'Hotel',
     price: 160,
     city: {
       name: 'Amsterdam',
@@ -87,6 +87,6 @@ export const offers: Offers = [
     isFavorite: false,
     isPremium: true,
     rating: 5,
-    previewImage: 'https://url-to-image/image.png'
+    previewImage: 'img/room.jpg'
   }
 ];

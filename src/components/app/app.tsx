@@ -17,7 +17,7 @@ function App({cardsCount, offers}: AppPageProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={AppRoute.Root} element={<MainPage cardsCount={cardsCount} />} />
+        <Route path={AppRoute.Root} element={<MainPage cardsCount={cardsCount} offers={offers} />} />
         <Route path={AppRoute.Login} element={<LoginScreen />} />
         <Route
           path={AppRoute.Favorites}

@@ -1,12 +1,13 @@
 import PlaceCard from '../../components/place-card/place-card';
 import Header from '../../components/header/header';
-import {offers} from "../../mocks/offers";
+import {Offers} from '../../types/offer';
 
 type MainPageProps = {
   cardsCount: number;
+  offers: Offers;
 }
 
-function MainPage({cardsCount}: MainPageProps): JSX.Element {
+function MainPage({cardsCount, offers}: MainPageProps): JSX.Element {
   console.log(offers);
   return (
     <div className="page page--gray page--main">
@@ -71,7 +72,7 @@ function MainPage({cardsCount}: MainPageProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {Array.from({length: cardsCount}, (card, id) => (<PlaceCard key={id} item={card}/>))}
+                {offers.slice(0, cardsCount).map((offer) => (<PlaceCard key={offer.id} item={offer} />))}
               </div>
             </section>
             <div className="cities__right-section">
