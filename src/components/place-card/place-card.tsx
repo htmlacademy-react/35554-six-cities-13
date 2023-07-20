@@ -3,12 +3,16 @@ import {Offer} from '../../types/offer';
 type PlaceCardProps = {
   keyOffer: string;
   item: Offer;
-  onMouseEnter: () => void;
+  onMouseEnter: (id: string) => void;
 };
 
 function PlaceCard({keyOffer, item, onMouseEnter}: PlaceCardProps): JSX.Element {
+  const handleMouseEnter = () => {
+    onMouseEnter(item.id);
+  };
+
   return (
-    <article className="cities__card place-card" onMouseEnter={onMouseEnter}>
+    <article className="cities__card place-card" onMouseEnter={handleMouseEnter}>
       {item.isPremium ?
         <div className="place-card__mark">
           <span>Premium</span>

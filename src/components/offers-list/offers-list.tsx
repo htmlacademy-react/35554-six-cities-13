@@ -19,7 +19,7 @@ function OffersList({offers}: OffersListProps) {
         key={offer.id}
         keyOffer={offer.id}
         item={offer}
-        onMouseEnter={handleCardMouseEnter(offer.id)}
+        onMouseEnter={handleCardMouseEnter}
       />)
     )
   );
