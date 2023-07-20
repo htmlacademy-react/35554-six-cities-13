@@ -3,12 +3,12 @@ import {Offer} from '../../types/offer';
 type PlaceCardProps = {
   keyOffer: string;
   item: Offer;
+  onMouseEnter: ;
 };
 
-function PlaceCard({keyOffer, item}: PlaceCardProps): JSX.Element {
-  console.log(keyOffer)
+function PlaceCard({keyOffer, item, onMouseEnter}: PlaceCardProps): JSX.Element {
   return (
-    <article className="cities__card place-card">
+    <article className="cities__card place-card" onMouseEnter={onMouseEnter}>
       {item.isPremium ?
         <div className="place-card__mark">
           <span>Premium</span>
@@ -38,7 +38,7 @@ function PlaceCard({keyOffer, item}: PlaceCardProps): JSX.Element {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: '80%'}}></span>
+            <span style={{width: `${item.rating * 20}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

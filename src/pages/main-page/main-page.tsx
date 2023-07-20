@@ -1,6 +1,7 @@
 import PlaceCard from '../../components/place-card/place-card';
 import Header from '../../components/header/header';
 import {Offers} from '../../types/offer';
+import OffersList from "../../components/offers-list/offers-list";
 
 type MainPageProps = {
   cardsCount: number;
@@ -71,7 +72,7 @@ function MainPage({cardsCount, offers}: MainPageProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {offers.slice(0, cardsCount).map((offer) => (<PlaceCard key={offer.id} keyOffer={offer.id} item={offer} />))}
+                <OffersList offers={offers} />
               </div>
             </section>
             <div className="cities__right-section">
