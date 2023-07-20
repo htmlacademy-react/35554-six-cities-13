@@ -3,7 +3,7 @@ import {Offer} from '../../types/offer';
 type PlaceCardProps = {
   keyOffer: string;
   item: Offer;
-  onMouseEnter: ;
+  onMouseEnter: () => void;
 };
 
 function PlaceCard({keyOffer, item, onMouseEnter}: PlaceCardProps): JSX.Element {
