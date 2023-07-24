@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 import {offers} from './mocks/offers';
 import {fullOffers} from './mocks/full-offers';
+import {comments} from './mocks/comments';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -10,6 +11,6 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App offers={offers} fullOffers={fullOffers} />
+    <App offers={offers} fullOffers={fullOffers} comments={comments} />
   </React.StrictMode>
 );

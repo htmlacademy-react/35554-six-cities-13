@@ -3,13 +3,15 @@ import {useParams} from 'react-router-dom';
 import {FullOffers, Offers} from '../../types/offer';
 import PlaceCard from '../../components/place-card/place-card';
 import Reviews from '../../components/reviews/reviews';
+import {Comments} from '../../types/comments';
 
 type OfferScreenProps = {
   offers: Offers;
   fullOffers: FullOffers;
+  comments: Comments;
 };
 
-function OfferScreen({fullOffers, offers}: OfferScreenProps): JSX.Element {
+function OfferScreen({fullOffers, offers, comments}: OfferScreenProps): JSX.Element {
   const {id} = useParams();
   const offerCurrent = fullOffers.find((item) => item.id === id);
   const {images, description, isPremium, isFavorite, title, rating, type, bedrooms, maxAdults, price, goods} = offerCurrent;
@@ -101,7 +103,7 @@ function OfferScreen({fullOffers, offers}: OfferScreenProps): JSX.Element {
                   </p>
                 </div>
               </div>
-              <Reviews />
+              <Reviews comments={comments} />
             </div>
           </div>
           <section className="offer__map map"></section>
