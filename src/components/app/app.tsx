@@ -27,7 +27,7 @@ function App({offers, fullOffers}: AppPageProps): JSX.Element {
             </PrivateRoute>
           }
         />
-        <Route path={AppRoute.Offer} element={<OfferScreen fullOffers={fullOffers} />} />
+        <Route path={AppRoute.Offer} element={<OfferScreen offers={offers} fullOffers={fullOffers} />} />
         <Route path={AppRoute.Other} element={<NotFoundScreen />} />
       </Routes>
     </BrowserRouter>
