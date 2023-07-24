@@ -6,14 +6,14 @@ import {AppRoute, AuthorizationStatus} from '../../const';
 import PrivateRoute from '../private-route/private-route';
 import OfferScreen from '../../pages/offer-screen/offer-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
-import {Offers} from '../../types/offer';
+import {FullOffers, Offers} from '../../types/offer';
 
 type AppPageProps = {
-  cardsCount: number;
   offers: Offers;
+  fullOffers: FullOffers;
 }
 
-function App({offers}: AppPageProps): JSX.Element {
+function App({offers, fullOffers}: AppPageProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
@@ -27,7 +27,7 @@ function App({offers}: AppPageProps): JSX.Element {
             </PrivateRoute>
           }
         />
-        <Route path={AppRoute.Offer} element={<OfferScreen offers={offers} />} />
+        <Route path={AppRoute.Offer} element={<OfferScreen fullOffers={fullOffers} />} />
         <Route path={AppRoute.Other} element={<NotFoundScreen />} />
       </Routes>
     </BrowserRouter>

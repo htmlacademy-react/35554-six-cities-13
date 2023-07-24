@@ -23,3 +23,20 @@ export type Offer = {
 };
 
 export type Offers = Offer[];
+
+export type Host = {
+  name: string;
+  avatarUrl: string;
+  isPro: boolean;
+};
+
+export type FullOffer = Offer & {
+  description: string;
+  bedrooms: number;
+  goods: string[];
+  host: Host;
+  images: string[];
+  maxAdults: number;
+};
+
+export type FullOffers = FullOffer[];

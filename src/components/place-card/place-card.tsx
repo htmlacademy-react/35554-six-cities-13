@@ -10,6 +10,7 @@ type PlaceCardProps = {
 
 function PlaceCard({item, className, onMouseEnter}: PlaceCardProps): JSX.Element {
   const {id, type, title, isPremium, isFavorite, price, previewImage, rating} = item;
+
   const handleMouseEnter = () => {
     onMouseEnter(id);
   };
