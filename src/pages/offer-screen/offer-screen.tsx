@@ -1,6 +1,14 @@
 import Header from '../../components/header/header';
+import {useParams} from 'react-router-dom';
+import {Offers} from '../../types/offer';
 
-function OfferScreen() {
+type OfferScreenProps = {
+  offers: Offers;
+};
+
+function OfferScreen({offers}: OfferScreenProps): JSX.Element {
+  const {id} = useParams();
+  const offerCurrent = offers.filter((offer) => offer.id === id);
   return (
     <div className="page">
       <Header />

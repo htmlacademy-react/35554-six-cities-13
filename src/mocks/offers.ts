@@ -4,7 +4,7 @@ export const offers: Offers = [
   {
     id: crypto.randomUUID(),
     title: 'Beautiful & luxurious studio at great location',
-    type: 'Apartment',
+    type: 'apartment',
     price: 120,
     city: {
       name: 'Amsterdam',
@@ -26,7 +26,7 @@ export const offers: Offers = [
   {
     id: crypto.randomUUID(),
     title: 'Wood and stone place',
-    type: 'Private Room',
+    type: 'room',
     price: 90,
     city: {
       name: 'Amsterdam',
@@ -48,7 +48,7 @@ export const offers: Offers = [
   {
     id: crypto.randomUUID(),
     title: 'Canal View Prinsengracht',
-    type: 'House',
+    type: 'house',
     price: 100,
     city: {
       name: 'Amsterdam',
@@ -70,7 +70,7 @@ export const offers: Offers = [
   {
     id: crypto.randomUUID(),
     title: 'Nice, cozy, warm big bed apartment',
-    type: 'Hotel',
+    type: 'hotel',
     price: 160,
     city: {
       name: 'Amsterdam',

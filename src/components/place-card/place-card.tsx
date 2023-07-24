@@ -1,36 +1,38 @@
 import {Offer} from '../../types/offer';
+import {Link} from 'react-router-dom';
+import {AppRoute} from '../../const';
 
 type PlaceCardProps = {
-  keyOffer: string;
   item: Offer;
+  className: string;
   onMouseEnter: (id: string) => void;
 };
 
-function PlaceCard({keyOffer, item, onMouseEnter}: PlaceCardProps): JSX.Element {
+function PlaceCard({item, className, onMouseEnter}: PlaceCardProps): JSX.Element {
+  const {id, type, title, isPremium, isFavorite, price, previewImage, rating} = item;
   const handleMouseEnter = () => {
-    onMouseEnter(item.id);
+    onMouseEnter(id);
   };
 
   return (
-    <article className="cities__card place-card" onMouseEnter={handleMouseEnter}>
-      {item.isPremium ?
+    <article className={`${className}__card place-card`} onMouseEnter={handleMouseEnter}>
+      {isPremium &&
         <div className="place-card__mark">
           <span>Premium</span>
-        </div>
-        : ''}
+        </div>}
 
-      <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#">
-          <img className="place-card__image" src={item.previewImage} width={260} height={200} alt="Place image"/>
-        </a>
+      <div className={`${className}__image-wrapper place-card__image-wrapper`}>
+        <Link to={AppRoute.Offer.replace(':id', item.id)}>
+          <img className="place-card__image" src={previewImage} width={260} height={200} alt="Place image"/>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">&euro;{item.price}</b>
+            <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={item.isFavorite
+          <button className={isFavorite
             ? 'place-card__bookmark-button place-card__bookmark-button--active button'
             : 'place-card__bookmark-button button'} type="button"
           >
@@ -42,14 +44,14 @@ function PlaceCard({keyOffer, item, onMouseEnter}: PlaceCardProps): JSX.Element 
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${item.rating * 20}%`}}></span>
+            <span style={{width: `${rating * 20}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{item.title}</a>
+          <Link to={AppRoute.Offer.replace(':id', item.id)}>{title}</Link>
         </h2>
-        <p className="place-card__type">{item.type}</p>
+        <p className="place-card__type">{type}</p>
       </div>
     </article>
   );

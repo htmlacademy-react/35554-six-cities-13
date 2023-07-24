@@ -1,13 +1,13 @@
 import PlaceCard from '../place-card/place-card';
 import {Offers} from '../../types/offer';
-import {useState} from "react";
+import {useState} from 'react';
 
 type OffersListProps = {
   offers: Offers;
 };
 
 function OffersList({offers}: OffersListProps) {
-  const [activeCard, setActiveCard] = useState(null);
+  const [, setActiveCard] = useState(null);
 
   const handleCardMouseEnter = (idOffer) => {
     setActiveCard(idOffer);
@@ -17,8 +17,8 @@ function OffersList({offers}: OffersListProps) {
     offers.map((offer) => (
       <PlaceCard
         key={offer.id}
-        keyOffer={offer.id}
         item={offer}
+        className={'cities'}
         onMouseEnter={handleCardMouseEnter}
       />)
     )
