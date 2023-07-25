@@ -6,17 +6,33 @@ type PlaceCardProps = {
   item: Offer;
   className: string;
   onMouseEnter: (id: string) => void;
+  onMouseLeave: () => void;
 };
 
-function PlaceCard({item, className, onMouseEnter}: PlaceCardProps): JSX.Element {
+const typeHousing = {
+  apartment: 'Apartment',
+  room: 'Private Room',
+  house: 'House',
+  hotel: 'Hotel',
+} as const;
+
+function PlaceCard({item, className, onMouseEnter, onMouseLeave}: PlaceCardProps): JSX.Element {
   const {id, type, title, isPremium, isFavorite, price, previewImage, rating} = item;
 
   const handleMouseEnter = () => {
     onMouseEnter(id);
   };
 
+  const handleMouseLeave = () => {
+    onMouseLeave();
+  };
+
   return (
-    <article className={`${className}__card place-card`} onMouseEnter={handleMouseEnter}>
+    <article
+      className={`${className}__card place-card`}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
       {isPremium &&
         <div className="place-card__mark">
           <span>Premium</span>
@@ -52,7 +68,7 @@ function PlaceCard({item, className, onMouseEnter}: PlaceCardProps): JSX.Element
         <h2 className="place-card__name">
           <Link to={AppRoute.Offer.replace(':id', item.id)}>{title}</Link>
         </h2>
-        <p className="place-card__type">{type}</p>
+        <p className="place-card__type">{typeHousing[type]}</p>
       </div>
     </article>
   );

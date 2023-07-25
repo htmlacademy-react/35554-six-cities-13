@@ -34,7 +34,9 @@ function FavoritesScreen({offers}: FavoritesScreenProps) {
                         {offerListByCities.map((offer) => {
                           if (offer.isFavorite) {
                             return (
-                              <PlaceCard key={offer.id} item={offer} className={'favorites'}/>
+                              <PlaceCard key={offer.id} item={offer} className={'favorites'}
+                                onMouseEnter={null} onMouseLeave={null}
+                              />
                             );
                           }
                         })}

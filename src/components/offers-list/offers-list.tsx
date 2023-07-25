@@ -7,10 +7,14 @@ type OffersListProps = {
 };
 
 function OffersList({offers}: OffersListProps) {
-  const [, setActiveCard] = useState(null);
+  const [, setActiveCard] = useState<string | null>(null);
 
-  const handleCardMouseEnter = (idOffer) => {
+  const handleCardMouseEnter = (idOffer: string) => {
     setActiveCard(idOffer);
+  };
+
+  const handleCardMouseLeave = () => {
+    setActiveCard(null);
   };
 
   return (
@@ -20,6 +24,7 @@ function OffersList({offers}: OffersListProps) {
         item={offer}
         className={'cities'}
         onMouseEnter={handleCardMouseEnter}
+        onMouseLeave={handleCardMouseLeave}
       />)
     )
   );
