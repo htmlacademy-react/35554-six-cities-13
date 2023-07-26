@@ -15,7 +15,7 @@ function Locations():JSX.Element {
         {CITIES.map((city) => (
           <li className="locations__item" key={city}>
             <Link
-              className={`locations__item-link tabs__item ${activeTab === city && 'tabs__item--active'}`}
+              className={`locations__item-link tabs__item ${activeTab === city ? 'tabs__item--active' : ''}`}
               to={AppRoute.Root}
               onClick={() => handleTabClick(city)}
             >
