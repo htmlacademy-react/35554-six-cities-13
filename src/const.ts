@@ -1,12 +1,17 @@
-export const Setting = {
-  CardsCount: 5,
-};
+const CITIES = [
+  'Paris',
+  'Cologne',
+  'Brussels',
+  'Amsterdam',
+  'Hamburg',
+  'Dusseldorf'
+];
 
 export enum AppRoute {
   Root = '/',
   Login = '/login',
   Favorites = '/favorites',
-  Offers = '/offer/:id',
+  Offer = '/offer/:id',
   Other = '*',
 }
 
@@ -15,3 +20,5 @@ export enum AuthorizationStatus {
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
 }
+
+export {CITIES};
