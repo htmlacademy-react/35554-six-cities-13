@@ -3,9 +3,9 @@ import {AppRoute, CITIES} from '../../const';
 import {useState} from 'react';
 
 function Locations():JSX.Element {
-  const [activeTab, setActiveTab] = useState(CITIES[0]);
+  const [activeTab, setActiveTab] = useState<string>(CITIES[0]);
 
-  const handleTabClick = (city) => {
+  const handleTabClick = (city: string) => {
     setActiveTab(city);
   };
 

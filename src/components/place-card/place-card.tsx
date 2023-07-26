@@ -1,5 +1,5 @@
 import {Offer} from '../../types/offer';
-import {Link} from 'react-router-dom';
+import {Link, generatePath} from 'react-router-dom';
 import {AppRoute} from '../../const';
 
 type PlaceCardProps = {
@@ -39,7 +39,7 @@ function PlaceCard({item, className, onMouseEnter, onMouseLeave}: PlaceCardProps
         </div>}
 
       <div className={`${className}__image-wrapper place-card__image-wrapper`}>
-        <Link to={AppRoute.Offer.replace(':id', item.id)}>
+        <Link to={generatePath(AppRoute.Offer, {id: item.id})}>
           <img className="place-card__image" src={previewImage} width={260} height={200} alt="Place image"/>
         </Link>
       </div>
@@ -66,7 +66,7 @@ function PlaceCard({item, className, onMouseEnter, onMouseLeave}: PlaceCardProps
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={AppRoute.Offer.replace(':id', item.id)}>{title}</Link>
+          <Link to={generatePath(AppRoute.Offer, {id: item.id})}>{title}</Link>
         </h2>
         <p className="place-card__type">{typeHousing[type]}</p>
       </div>
