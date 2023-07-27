@@ -2,12 +2,14 @@ import Header from '../../components/header/header';
 import {Offers} from '../../types/offer';
 import OffersList from '../../components/offers-list/offers-list';
 import Locations from '../../components/locations/locations';
+import Map from '../../components/map/map';
 
 type MainPageProps = {
   offers: Offers;
 }
 
 function MainPage({offers}: MainPageProps): JSX.Element {
+  const city = offers[0].city;
   return (
     <div className="page page--gray page--main">
       <Header />
@@ -42,7 +44,9 @@ function MainPage({offers}: MainPageProps): JSX.Element {
               </div>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <section className="cities__map map">
+                <Map offers={offers} city={city} />
+              </section>
             </div>
           </div>
         </div>
