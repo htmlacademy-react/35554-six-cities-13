@@ -4,6 +4,7 @@ import {FullOffer, FullOffers, Offers} from '../../types/offer';
 import PlaceCard from '../../components/place-card/place-card';
 import Reviews from '../../components/reviews/reviews';
 import {Comments} from '../../types/comments';
+import Map from '../../components/map/map';
 
 type OfferScreenProps = {
   offers: Offers;
@@ -16,6 +17,7 @@ function OfferScreen({fullOffers, offers, comments}: OfferScreenProps): JSX.Elem
   const offerCurrent = fullOffers.find((item) => item.id === id) as FullOffer;
   const {images, description, isPremium, isFavorite, title, rating, type, bedrooms, maxAdults, price, goods} = offerCurrent;
   const {avatarUrl, name, isPro} = offerCurrent.host;
+  const city = offers[0].city;
   return (
     <div className="page">
       <Header />
@@ -106,7 +108,9 @@ function OfferScreen({fullOffers, offers, comments}: OfferScreenProps): JSX.Elem
               <Reviews comments={comments} />
             </div>
           </div>
-          <section className="offer__map map"></section>
+          <section className="offer__map map">
+            <Map city={city} offers={offers} selectedOffer={null} />
+          </section>
         </section>
         <div className="container">
           <section className="near-places places">
