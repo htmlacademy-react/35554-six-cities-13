@@ -3,6 +3,7 @@ import {Offers} from '../../types/offer';
 import OffersList from '../../components/offers-list/offers-list';
 import Locations from '../../components/locations/locations';
 import Map from '../../components/map/map';
+import {useState} from "react";
 
 type MainPageProps = {
   offers: Offers;
@@ -10,6 +11,16 @@ type MainPageProps = {
 
 function MainPage({offers}: MainPageProps): JSX.Element {
   const city = offers[0].city;
+  const [selectedOffer, setSelectedOffer] = useState({});
+
+  const handleCardMouseEnter = (idOffer: string) => {
+    setSelectedOffer(idOffer);
+  };
+
+  const handleCardMouseLeave = () => {
+    setSelectedOffer(null);
+  };
+
   return (
     <div className="page page--gray page--main">
       <Header />
@@ -40,12 +51,20 @@ function MainPage({offers}: MainPageProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <OffersList offers={offers} />
+                <OffersList
+                  offers={offers}
+                  onCardMouseEnter={handleCardMouseEnter}
+                  onCardMouseLeave={handleCardMouseLeave}
+                />
               </div>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map offers={offers} city={city} />
+                <Map
+                  offers={offers}
+                  city={city}
+                  selectedOffer={selectedOffer}
+                />
               </section>
             </div>
           </div>
