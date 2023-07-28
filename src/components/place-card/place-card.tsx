@@ -5,8 +5,8 @@ import {AppRoute} from '../../const';
 type PlaceCardProps = {
   item: Offer;
   className: string;
-  onMouseEnter: (id: string) => void;
-  onMouseLeave: () => void;
+  onMouseEnter?: (id: string) => void;
+  onMouseLeave?: () => void;
 };
 
 const typeHousing = {
@@ -20,11 +20,11 @@ function PlaceCard({item, className, onMouseEnter, onMouseLeave}: PlaceCardProps
   const {id, type, title, isPremium, isFavorite, price, previewImage, rating} = item;
 
   const handleMouseEnter = () => {
-    onMouseEnter(id);
+    onMouseEnter?.(id);
   };
 
   const handleMouseLeave = () => {
-    onMouseLeave();
+    onMouseLeave?.();
   };
 
   return (
