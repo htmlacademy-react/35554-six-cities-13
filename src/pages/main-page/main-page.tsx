@@ -3,7 +3,7 @@ import {Offers} from '../../types/offer';
 import OffersList from '../../components/offers-list/offers-list';
 import Locations from '../../components/locations/locations';
 import Map from '../../components/map/map';
-import {useState} from "react";
+import {useState} from 'react';
 
 type MainPageProps = {
   offers: Offers;
@@ -11,7 +11,7 @@ type MainPageProps = {
 
 function MainPage({offers}: MainPageProps): JSX.Element {
   const city = offers[0].city;
-  const [selectedOffer, setSelectedOffer] = useState({});
+  const [selectedOffer, setSelectedOffer] = useState<string | null>(null);
 
   const handleCardMouseEnter = (idOffer: string) => {
     setSelectedOffer(idOffer);
