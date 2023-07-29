@@ -5,6 +5,7 @@ import PlaceCard from '../../components/place-card/place-card';
 import Reviews from '../../components/reviews/reviews';
 import {Comments} from '../../types/comments';
 import Map from '../../components/map/map';
+import {getRating} from '../../utils/offers';
 
 type OfferScreenProps = {
   offers: Offers;
@@ -55,7 +56,7 @@ function OfferScreen({fullOffers, offers, comments}: OfferScreenProps): JSX.Elem
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
-                  <span style={{width: `${Math.floor(rating) * 20}%`}}></span>
+                  <span style={{width: `${getRating(rating)}%`}}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="offer__rating-value rating__value">{rating}</span>
