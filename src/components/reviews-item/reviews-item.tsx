@@ -1,5 +1,5 @@
 import {Comment} from '../../types/comments';
-import * as dayjs from 'dayjs';
+import {getRating, getRefineDate, getRefineFullDate} from '../../utils/offers';
 
 type ReviewsItemProps = {
   commentItem: Comment;
@@ -7,7 +7,7 @@ type ReviewsItemProps = {
 
 function ReviewsItem({commentItem}: ReviewsItemProps): JSX.Element {
   const {comment, date, rating, user} = commentItem;
-  const refineDate = (date) => date && dayjs(date).format('MMMM YYYY');
+  // const refineDate = (date: string) => date && dayjs(date).format('MMMM YYYY');
 
   return (
     <li className="reviews__item">
@@ -22,14 +22,14 @@ function ReviewsItem({commentItem}: ReviewsItemProps): JSX.Element {
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{width: `${Math.floor(rating) * 20}%`}}></span>
+            <span style={{width: `${getRating(rating)}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <p className="reviews__text">
           {comment}
         </p>
-        <time className="reviews__time" dateTime="2019-04-24">{refineDate(date)}</time>
+        <time className="reviews__time" dateTime={getRefineFullDate(date)}>{getRefineDate(date)}</time>
       </div>
     </li>
   );
