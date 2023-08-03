@@ -29,7 +29,11 @@ function Map({city, offers, selectedOffer}: MapProps): JSX.Element {
 
   useEffect(() => {
     if (map) {
+      const {latitude, longitude, zoom} = city.location;
+      map.setView([latitude, longitude], zoom);
+
       const markerLayer = layerGroup().addTo(map);
+
       offers.forEach((offer) => {
         const marker = new Marker({
           lat: offer.location.latitude,

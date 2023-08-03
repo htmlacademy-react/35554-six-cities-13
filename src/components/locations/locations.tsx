@@ -1,23 +1,25 @@
 import {Link} from 'react-router-dom';
 import {AppRoute, CITIES} from '../../const';
-import {useState} from 'react';
+import cn from 'classnames';
 
-function Locations():JSX.Element {
-  const [activeTab, setActiveTab] = useState<string>(CITIES[0]);
+type LocationsProps = {
+  location: string;
+  onCityClick: (cityOffers: string) => void;
+};
 
-  const handleTabClick = (city: string) => {
-    setActiveTab(city);
-  };
-
+function Locations({location, onCityClick}: LocationsProps):JSX.Element {
   return (
     <section className="locations container">
       <ul className="locations__list tabs__list">
         {CITIES.map((city) => (
           <li className="locations__item" key={city}>
             <Link
-              className={`locations__item-link tabs__item ${activeTab === city ? 'tabs__item--active' : ''}`}
+              className={cn('locations__item-link tabs__item', {'tabs__item--active': location === city})}
               to={AppRoute.Root}
-              onClick={() => handleTabClick(city)}
+              onClick={(evt) => {
+                evt.preventDefault();
+                onCityClick(city);
+              }}
             >
               <span>{city}</span>
             </Link>
