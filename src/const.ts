@@ -13,6 +13,8 @@ const CITIES = [
   'Dusseldorf'
 ];
 
+export const DEFAULT_CITY = CITIES[0];
+
 export enum AppRoute {
   Root = '/',
   Login = '/login',
