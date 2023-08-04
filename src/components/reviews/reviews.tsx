@@ -1,16 +1,18 @@
 import FormReviews from '../form-reviews/form-reviews';
-import {Comments} from '../../types/comments';
+import {Reviews} from '../../types/reviews';
 import ReviewsList from '../reviews-list/reviews-list';
 
 type ReviewsProps = {
-  comments: Comments;
+  reviews: Reviews;
 };
 
-function Reviews({comments}: ReviewsProps):JSX.Element {
+function Reviews({reviews}: ReviewsProps):JSX.Element {
   return (
     <section className="offer__reviews reviews">
-      <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
-      <ReviewsList comments={comments} />
+      <h2 className="reviews__title">
+        Reviews &middot; <span className="reviews__amount">{reviews.length}</span>
+      </h2>
+      <ReviewsList reviews={reviews} />
       <FormReviews />
     </section>
   );

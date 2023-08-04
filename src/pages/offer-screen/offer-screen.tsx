@@ -3,22 +3,38 @@ import {useParams} from 'react-router-dom';
 import {FullOffer, FullOffers, Offers} from '../../types/offer';
 import PlaceCard from '../../components/place-card/place-card';
 import Reviews from '../../components/reviews/reviews';
-import {Comments} from '../../types/comments';
+import {Reviews} from '../../types/reviews';
 import Map from '../../components/map/map';
 import {getRating} from '../../utils/offers';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {useEffect} from 'react';
+import {dropOffer, fetchOffer} from '../../store/action';
 
 type OfferScreenProps = {
   offers: Offers;
   fullOffers: FullOffers;
-  comments: Comments;
+  reviews: Reviews;
 };
 
-function OfferScreen({fullOffers, offers, comments}: OfferScreenProps): JSX.Element {
+function OfferScreen({fullOffers, offers, reviews}: OfferScreenProps): JSX.Element {
   const {id} = useParams();
+  const dispatch = useAppDispatch();
+  const offer = useAppSelector((state) => state.offer);
   const offerCurrent = fullOffers.find((item) => item.id === id) as FullOffer;
+
   const {images, description, isPremium, isFavorite, title, rating, type, bedrooms, maxAdults, price, goods} = offerCurrent;
   const {avatarUrl, name, isPro} = offerCurrent.host;
-  const city = offers[0].city;
+
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchOffer(id));
+    }
+
+    return () => {
+      dispatch(dropOffer());
+    };
+  }, [id, dispatch]);
+
   return (
     <div className="page">
       <Header />
@@ -106,11 +122,11 @@ function OfferScreen({fullOffers, offers, comments}: OfferScreenProps): JSX.Elem
                   </p>
                 </div>
               </div>
-              <Reviews comments={comments} />
+              <Reviews reviews={reviews} />
             </div>
           </div>
           <section className="offer__map map">
-            <Map city={city} offers={offers} selectedOffer={null} />
+            <Map city={offerCurrent.city} offers={offers} selectedOffer={null} />
           </section>
         </section>
         <div className="container">

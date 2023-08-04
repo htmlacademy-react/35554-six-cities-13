@@ -2,17 +2,22 @@ import Header from '../../components/header/header';
 import OffersList from '../../components/offers-list/offers-list';
 import Locations from '../../components/locations/locations';
 import Map from '../../components/map/map';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import OffersEmpty from '../../components/offers-empty/offers-empty';
-import {changeCity} from '../../store/action';
+import Sorting from '../../components/sorting/sorting';
+import cn from 'classnames';
+import {fillOffersList} from '../../store/action';
 
 function MainPage(): JSX.Element {
   const dispatch = useAppDispatch();
-  const city = useAppSelector((store) => store.city);
+  const activeCity = useAppSelector((store) => store.city);
   const offers = useAppSelector((store) => store.offers);
+  const offersByActiveCity = offers.filter((offer) => offer.city.name === activeCity);
 
-  const offersByCurrentCity = offers.filter((offer) => offer.city.name === city);
+  useEffect(() => {
+    dispatch(fillOffersList());
+  }, [dispatch]);
 
   const [selectedOffer, setSelectedOffer] = useState<string | null>(null);
 
@@ -24,46 +29,28 @@ function MainPage(): JSX.Element {
     setSelectedOffer(null);
   };
 
-  const handleCityClick = (cityOffers: string) => {
-    dispatch(changeCity(cityOffers));
-  };
-
   return (
     <div className="page page--gray page--main">
       <Header />
 
-      <main className="page__main page__main--index">
+      <main className={cn('page__main page__main--index', {'page__main--index-empty': !offersByActiveCity.length})}>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
-          <Locations location={city} onCityClick={handleCityClick} />
+          <Locations location={activeCity} />
         </div>
         <div className="cities">
-          {offersByCurrentCity.length
+          {offersByActiveCity.length
             ?
             <div className="cities__places-container container">
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
                 <b className="places__found">
-                  {offersByCurrentCity.length} places to stay in {offersByCurrentCity[0].city.name}
+                  {offersByActiveCity.length} places to stay in {activeCity}
                 </b>
-                <form className="places__sorting" action="#" method="get">
-                  <span className="places__sorting-caption">Sort by</span>
-                  <span className="places__sorting-type" tabIndex={0}>
-                  Popular
-                    <svg className="places__sorting-arrow" width="7" height="4">
-                      <use xlinkHref="#icon-arrow-select"></use>
-                    </svg>
-                  </span>
-                  <ul className="places__options places__options--custom places__options--opened">
-                    <li className="places__option places__option--active" tabIndex={0}>Popular</li>
-                    <li className="places__option" tabIndex={0}>Price: low to high</li>
-                    <li className="places__option" tabIndex={0}>Price: high to low</li>
-                    <li className="places__option" tabIndex={0}>Top rated first</li>
-                  </ul>
-                </form>
+                <Sorting />
                 <div className="cities__places-list places__list tabs__content">
                   <OffersList
-                    offers={offers}
+                    offers={offersByActiveCity}
                     onCardMouseEnter={handleCardMouseEnter}
                     onCardMouseLeave={handleCardMouseLeave}
                   />
@@ -72,14 +59,14 @@ function MainPage(): JSX.Element {
               <div className="cities__right-section">
                 <section className="cities__map map">
                   <Map
-                    city={offersByCurrentCity[0]?.city}
-                    offers={offersByCurrentCity}
+                    city={offersByActiveCity[0]?.city}
+                    offers={offersByActiveCity}
                     selectedOffer={selectedOffer}
                   />
                 </section>
               </div>
             </div>
-            : <OffersEmpty />}
+            : <OffersEmpty city={activeCity} />}
         </div>
       </main>
     </div>

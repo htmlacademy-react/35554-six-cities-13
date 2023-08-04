@@ -1,13 +1,12 @@
-import {Comment} from '../../types/comments';
+import {Review} from '../../types/reviews';
 import {getRating, getRefineDate, getRefineFullDate} from '../../utils/offers';
 
 type ReviewsItemProps = {
-  commentItem: Comment;
+  reviewItem: Review;
 };
 
-function ReviewsItem({commentItem}: ReviewsItemProps): JSX.Element {
-  const {comment, date, rating, user} = commentItem;
-  // const refineDate = (date: string) => date && dayjs(date).format('MMMM YYYY');
+function ReviewsItem({reviewItem}: ReviewsItemProps): JSX.Element {
+  const {comment, date, rating, user} = reviewItem;
 
   return (
     <li className="reviews__item">

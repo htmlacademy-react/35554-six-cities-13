@@ -1,13 +1,15 @@
 import {Link} from 'react-router-dom';
 import {AppRoute, CITIES} from '../../const';
 import cn from 'classnames';
+import {useAppDispatch} from "../../hooks";
+import {changeCity} from "../../store/action";
 
 type LocationsProps = {
   location: string;
-  onCityClick: (cityOffers: string) => void;
 };
 
-function Locations({location, onCityClick}: LocationsProps):JSX.Element {
+function Locations({location}: LocationsProps):JSX.Element {
+  const dispatch = useAppDispatch();
   return (
     <section className="locations container">
       <ul className="locations__list tabs__list">
@@ -16,10 +18,7 @@ function Locations({location, onCityClick}: LocationsProps):JSX.Element {
             <Link
               className={cn('locations__item-link tabs__item', {'tabs__item--active': location === city})}
               to={AppRoute.Root}
-              onClick={(evt) => {
-                evt.preventDefault();
-                onCityClick(city);
-              }}
+              onClick={() => dispatch(changeCity(city))}
             >
               <span>{city}</span>
             </Link>
