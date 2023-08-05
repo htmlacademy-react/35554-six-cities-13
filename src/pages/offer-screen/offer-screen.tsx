@@ -6,7 +6,7 @@ import Reviews from '../../components/reviews/reviews';
 import {TReviews} from '../../types/reviews';
 import Map from '../../components/map/map';
 import {getRating} from '../../utils/offers';
-import {useAppDispatch, useAppSelector} from '../../hooks';
+import {useAppDispatch} from '../../hooks';
 import {useEffect} from 'react';
 import {dropOffer, fetchOffer} from '../../store/action';
 
