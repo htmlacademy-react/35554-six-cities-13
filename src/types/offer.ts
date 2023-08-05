@@ -1,3 +1,5 @@
+import {SortingOffers} from '../const';
+
 export type Location = {
   latitude: number;
   longitude: number;
@@ -40,3 +42,5 @@ export type FullOffer = Offer & {
 };
 
 export type FullOffers = FullOffer[];
+
+export type TSorting = keyof typeof SortingOffers;

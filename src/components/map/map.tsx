@@ -53,7 +53,7 @@ function Map({city, offers, selectedOffer}: MapProps): JSX.Element {
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, offers, selectedOffer]);
+  }, [city.location, map, offers, selectedOffer]);
 
   return (
     <section style={{height: '100%'}} ref={mapRef}></section>

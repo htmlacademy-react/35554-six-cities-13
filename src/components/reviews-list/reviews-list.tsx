@@ -1,15 +1,15 @@
-import {Comments} from '../../types/comments';
+import {TReviews} from '../../types/reviews';
 import ReviewsItem from '../reviews-item/reviews-item';
 
 type ReviewsListProps = {
-  comments: Comments;
+  reviews: TReviews;
 };
 
-function ReviewsList({comments}: ReviewsListProps): JSX.Element {
+function ReviewsList({reviews}: ReviewsListProps): JSX.Element {
   return (
     <ul className="reviews__list">
-      {comments.map((comment) => (
-        <ReviewsItem key={comment.id} commentItem={comment} />
+      {reviews.map((review) => (
+        <ReviewsItem key={review.id} reviewItem={review} />
       ))}
     </ul>
   );

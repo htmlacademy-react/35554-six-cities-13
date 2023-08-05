@@ -7,19 +7,19 @@ import PrivateRoute from '../private-route/private-route';
 import OfferScreen from '../../pages/offer-screen/offer-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import {FullOffers, Offers} from '../../types/offer';
-import {Comments} from '../../types/comments';
+import {TReviews} from '../../types/reviews';
 
 type AppPageProps = {
   offers: Offers;
   fullOffers: FullOffers;
-  comments: Comments;
+  reviews: TReviews;
 }
 
-function App({offers, fullOffers, comments}: AppPageProps): JSX.Element {
+function App({offers, fullOffers, reviews}: AppPageProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={AppRoute.Root} element={<MainPage offers={offers} />} />
+        <Route path={AppRoute.Root} element={<MainPage />} />
         <Route path={AppRoute.Login} element={<LoginScreen />} />
         <Route
           path={AppRoute.Favorites}
@@ -30,7 +30,7 @@ function App({offers, fullOffers, comments}: AppPageProps): JSX.Element {
           }
         />
         <Route path={AppRoute.Offer}
-          element={<OfferScreen offers={offers} fullOffers={fullOffers} comments={comments} />}
+          element={<OfferScreen offers={offers} fullOffers={fullOffers} reviews={reviews} />}
         />
         <Route path={AppRoute.Other} element={<NotFoundScreen />} />
       </Routes>

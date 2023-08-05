@@ -1,6 +1,6 @@
-import {Comments} from '../types/comments';
+import {TReviews} from '../types/reviews';
 
-export const comments: Comments = [
+export const reviews: TReviews = [
   {
     id: 'f98a1496-9bba-491e-8cad-d5ae88903676',
     comment: 'I stayed here for one night and it was an unpleasant experience.',
