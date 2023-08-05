@@ -29,4 +29,11 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
+export const SortingOffers = {
+  Popular: 'Popular',
+  PriseLowHigh: 'Price: low to high',
+  PriceHighLow: 'Price: high to low',
+  TopRatedFirst: 'Top rated first',
+} as const;
+
 export {CITIES};

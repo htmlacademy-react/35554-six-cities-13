@@ -8,12 +8,19 @@ import OffersEmpty from '../../components/offers-empty/offers-empty';
 import Sorting from '../../components/sorting/sorting';
 import cn from 'classnames';
 import {fillOffersList} from '../../store/action';
+import {TSorting} from '../../types/offer';
+import {SortingOffers} from '../../const';
+import {sorting} from '../../utils/offers';
 
 function MainPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const activeCity = useAppSelector((store) => store.city);
   const offers = useAppSelector((store) => store.offers);
+
+  const [selectedSorting, setSelectedSorting] = useState<TSorting>(SortingOffers.Popular);
+
   const offersByActiveCity = offers.filter((offer) => offer.city.name === activeCity);
+  const offersBySorting = sorting[selectedSorting](offersByActiveCity);
 
   useEffect(() => {
     dispatch(fillOffersList());
@@ -33,7 +40,10 @@ function MainPage(): JSX.Element {
     <div className="page page--gray page--main">
       <Header />
 
-      <main className={cn('page__main page__main--index', {'page__main--index-empty': !offersByActiveCity.length})}>
+      <main className={cn('page__main page__main--index', {
+        'page__main--index-empty': !offersByActiveCity.length
+      })}
+      >
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <Locations location={activeCity} />
@@ -47,10 +57,13 @@ function MainPage(): JSX.Element {
                 <b className="places__found">
                   {offersByActiveCity.length} places to stay in {activeCity}
                 </b>
-                <Sorting />
+                <Sorting
+                  selectedSorting={selectedSorting}
+                  onTypeClick={(sort) => setSelectedSorting(sort)}
+                />
                 <div className="cities__places-list places__list tabs__content">
                   <OffersList
-                    offers={offersByActiveCity}
+                    offers={offersBySorting}
                     onCardMouseEnter={handleCardMouseEnter}
                     onCardMouseLeave={handleCardMouseLeave}
                   />

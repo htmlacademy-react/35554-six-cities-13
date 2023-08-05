@@ -1,9 +1,9 @@
 import FormReviews from '../form-reviews/form-reviews';
-import {Reviews} from '../../types/reviews';
+import {TReviews} from '../../types/reviews';
 import ReviewsList from '../reviews-list/reviews-list';
 
 type ReviewsProps = {
-  reviews: Reviews;
+  reviews: TReviews;
 };
 
 function Reviews({reviews}: ReviewsProps):JSX.Element {

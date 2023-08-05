@@ -3,7 +3,7 @@ import {useParams} from 'react-router-dom';
 import {FullOffer, FullOffers, Offers} from '../../types/offer';
 import PlaceCard from '../../components/place-card/place-card';
 import Reviews from '../../components/reviews/reviews';
-import {Reviews} from '../../types/reviews';
+import {TReviews} from '../../types/reviews';
 import Map from '../../components/map/map';
 import {getRating} from '../../utils/offers';
 import {useAppDispatch, useAppSelector} from '../../hooks';
@@ -13,7 +13,7 @@ import {dropOffer, fetchOffer} from '../../store/action';
 type OfferScreenProps = {
   offers: Offers;
   fullOffers: FullOffers;
-  reviews: Reviews;
+  reviews: TReviews;
 };
 
 function OfferScreen({fullOffers, offers, reviews}: OfferScreenProps): JSX.Element {

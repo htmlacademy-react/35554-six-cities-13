@@ -8,4 +8,4 @@ export type Review = {
   user: Host;
 }
 
-export type Reviews = Review[];
+export type TReviews = Review[];
