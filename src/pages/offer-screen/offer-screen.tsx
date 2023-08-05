@@ -19,7 +19,7 @@ type OfferScreenProps = {
 function OfferScreen({fullOffers, offers, reviews}: OfferScreenProps): JSX.Element {
   const {id} = useParams();
   const dispatch = useAppDispatch();
-  const offer = useAppSelector((state) => state.offer);
+  // const currentOffer = useAppSelector((state) => state.offer);
   const offerCurrent = fullOffers.find((item) => item.id === id) as FullOffer;
 
   const {images, description, isPremium, isFavorite, title, rating, type, bedrooms, maxAdults, price, goods} = offerCurrent;
