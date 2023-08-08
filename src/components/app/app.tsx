@@ -6,16 +6,18 @@ import {AppRoute, AuthorizationStatus} from '../../const';
 import PrivateRoute from '../private-route/private-route';
 import OfferScreen from '../../pages/offer-screen/offer-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
-import {FullOffers, Offers} from '../../types/offer';
-import {TReviews} from '../../types/reviews';
+import Spinner from '../spinner/spinner';
+import {useAppSelector} from '../../hooks';
 
-type AppPageProps = {
-  offers: Offers;
-  fullOffers: FullOffers;
-  reviews: TReviews;
-}
+function App(): JSX.Element {
+  const isOffersDataLoading = useAppSelector((store) => store.isOffersDataLoading);
 
-function App({offers, fullOffers, reviews}: AppPageProps): JSX.Element {
+  if (isOffersDataLoading) {
+    return (
+      <Spinner />
+    );
+  }
+
   return (
     <BrowserRouter>
       <Routes>
@@ -25,12 +27,12 @@ function App({offers, fullOffers, reviews}: AppPageProps): JSX.Element {
           path={AppRoute.Favorites}
           element={
             <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
-              <FavoritesScreen offers={offers} />
+              <FavoritesScreen />
             </PrivateRoute>
           }
         />
         <Route path={AppRoute.Offer}
-          element={<OfferScreen offers={offers} fullOffers={fullOffers} reviews={reviews} />}
+          element={<OfferScreen />}
         />
         <Route path={AppRoute.Other} element={<NotFoundScreen />} />
       </Routes>
