@@ -1,5 +1,6 @@
 import {createAction} from '@reduxjs/toolkit';
 import {Offer, Offers} from '../types/offer';
+import {AuthorizationStatus} from '../const';
 
 export const changeCity = createAction<string>('city/changeCity');
 
@@ -11,3 +12,6 @@ export const dropOffer = createAction('offer/dropOffer');
 
 export const setOffersDataLoadingStatus = createAction<boolean>
 ('data/setOffersDataLoadingStatus');
+
+export const requireAuthorization = createAction<AuthorizationStatus>
+('user/requireAuthorization');
