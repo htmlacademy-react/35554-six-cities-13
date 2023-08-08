@@ -1,0 +1,44 @@
+.spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+  width: 12px;
+  height: 12px;
+  margin: 0 auto 0 150px;
+  border-radius: 50%;
+  animation: loading 1s 0.3s infinite ease-in-out alternate-reverse;
+}
+
+.spinner::before,
+.spinner::after {
+  content: "";
+  top: 0;
+  left: -50px;
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  animation: loading 1s infinite ease-in-out alternate-reverse;
+}
+
+.spinner::after {
+  left: -25px;
+  animation-delay: 0.2s;
+}
+
+@keyframes loading {
+  0% {
+    box-shadow: 0 15px 0 -15px #5d5d5d;
+  }
+
+  100% {
+    box-shadow: 0 15px 0 0 #5d5d5d;
+  }
+}
+
+.text {
+  margin-left: -150px;
+  font-size: 24px;
+  text-align: center;
+}

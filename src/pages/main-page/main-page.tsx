@@ -2,18 +2,17 @@ import Header from '../../components/header/header';
 import OffersList from '../../components/offers-list/offers-list';
 import Locations from '../../components/locations/locations';
 import Map from '../../components/map/map';
-import {useEffect, useState} from 'react';
-import {useAppDispatch, useAppSelector} from '../../hooks';
+import {useState} from 'react';
+import {useAppSelector} from '../../hooks';
 import OffersEmpty from '../../components/offers-empty/offers-empty';
 import Sorting from '../../components/sorting/sorting';
 import cn from 'classnames';
-import {fillOffersList} from '../../store/action';
 import {TSorting} from '../../types/offer';
 import {SortingOffers} from '../../const';
 import {sorting} from '../../utils/offers';
 
 function MainPage(): JSX.Element {
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
   const activeCity = useAppSelector((store) => store.city);
   const offers = useAppSelector((store) => store.offers);
 
@@ -21,10 +20,6 @@ function MainPage(): JSX.Element {
 
   const offersByActiveCity = offers.filter((offer) => offer.city.name === activeCity);
   const offersBySorting = sorting[selectedSorting](offersByActiveCity);
-
-  useEffect(() => {
-    dispatch(fillOffersList());
-  }, [dispatch]);
 
   const [selectedOffer, setSelectedOffer] = useState<string | null>(null);
 
