@@ -36,4 +36,14 @@ export const SortingOffers = {
   TopRatedFirst: 'Top rated first',
 } as const;
 
+export enum APIRoute {
+  Offers = '/offers',
+  Offer = '/offers/offerId',
+  OffersNearby = '/offers/offerId/nearby',
+  Favorites = '/favorite',
+  Comments = '/comments/offersId',
+  Login = '/login',
+  Logout = '/logout',
+}
+
 export {CITIES};
