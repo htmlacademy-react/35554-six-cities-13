@@ -7,7 +7,7 @@ import {fillOffersList, requireAuthorization, setError, setOffersDataLoadingStat
 import {AuthData} from '../types/auth-data';
 import {UserData} from '../types/user-data';
 import {dropToken, saveToken} from '../services/token';
-import {store} from "./index";
+import {store} from './index';
 
 export const clearErrorAction = createAsyncThunk(
   'offer/clearError',

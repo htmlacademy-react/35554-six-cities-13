@@ -10,7 +10,7 @@ function Header(): JSX.Element {
           <div className="header__left">
             <Logo />
           </div>
-          <Navigation authorizationStatus={AuthorizationStatus.Auth} />
+          <Navigation authorizationStatus={AuthorizationStatus.NoAuth} />
         </div>
       </div>
     </header>
