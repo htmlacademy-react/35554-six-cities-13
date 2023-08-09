@@ -8,6 +8,8 @@ import OfferScreen from '../../pages/offer-screen/offer-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import Spinner from '../spinner/spinner';
 import {useAppSelector} from '../../hooks';
+import HistoryRouter from '../history-router/history-router';
+import browserHistory from '../../browser-history';
 
 function App(): JSX.Element {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
@@ -20,7 +22,7 @@ function App(): JSX.Element {
   }
 
   return (
-    <BrowserRouter>
+    <HistoryRouter history={browserHistory}>
       <Routes>
         <Route path={AppRoute.Root} element={<MainPage />} />
         <Route path={AppRoute.Login} element={<LoginScreen />} />
@@ -37,7 +39,7 @@ function App(): JSX.Element {
         />
         <Route path={AppRoute.Other} element={<NotFoundScreen />} />
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   );
 }
 

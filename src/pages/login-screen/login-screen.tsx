@@ -1,9 +1,9 @@
 import Logo from '../../components/logo/logo';
-import {FormEvent, useRef} from "react";
-import {useAppDispatch} from "../../hooks";
-import {loginAction} from "../../store/api-actions";
-import {Link} from "react-router-dom";
-import {AppRoute} from "../../const";
+import {FormEvent, useRef} from 'react';
+import {useAppDispatch} from '../../hooks';
+import {loginAction} from '../../store/api-actions';
+import {Link} from 'react-router-dom';
+import {AppRoute} from '../../const';
 
 function LoginScreen(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);

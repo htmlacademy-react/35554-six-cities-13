@@ -1,12 +1,16 @@
 import {AppRoute, AuthorizationStatus} from '../../const';
 import {Fragment} from 'react';
 import {Link} from 'react-router-dom';
+import {useAppDispatch} from '../../hooks';
+import {logoutAction} from '../../store/api-actions';
 
 type NavigationProps = {
   authorizationStatus: AuthorizationStatus;
 }
 
 function Navigation({authorizationStatus}: NavigationProps): JSX.Element {
+  const dispatch = useAppDispatch();
+
   return (
     <nav className="header__nav">
       <ul className="header__nav-list">
@@ -22,9 +26,16 @@ function Navigation({authorizationStatus}: NavigationProps): JSX.Element {
                 </Link>
               </li>
               <li className="header__nav-item">
-                <a className="header__nav-link" href="#">
+                <Link
+                  className="header__nav-link"
+                  to={AppRoute.Root}
+                  onClick={(evt) =>{
+                    evt.preventDefault();
+                    dispatch(logoutAction());
+                  }}
+                >
                   <span className="header__signout">Sign out</span>
-                </a>
+                </Link>
               </li>
             </Fragment>
           )
