@@ -10,9 +10,10 @@ import Spinner from '../spinner/spinner';
 import {useAppSelector} from '../../hooks';
 
 function App(): JSX.Element {
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const isOffersDataLoading = useAppSelector((store) => store.isOffersDataLoading);
 
-  if (isOffersDataLoading) {
+  if (authorizationStatus === AuthorizationStatus.Unknown || isOffersDataLoading) {
     return (
       <Spinner />
     );
@@ -26,7 +27,7 @@ function App(): JSX.Element {
         <Route
           path={AppRoute.Favorites}
           element={
-            <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
+            <PrivateRoute authorizationStatus={authorizationStatus}>
               <FavoritesScreen />
             </PrivateRoute>
           }
