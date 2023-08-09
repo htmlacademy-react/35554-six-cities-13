@@ -10,7 +10,6 @@ import cn from 'classnames';
 import {TSorting} from '../../types/offer';
 import {SortingOffers} from '../../const';
 import {sorting} from '../../utils/offers';
-import ErrorMessage from "../../components/error-message/error-message";
 
 function MainPage(): JSX.Element {
   // const dispatch = useAppDispatch();
@@ -35,7 +34,7 @@ function MainPage(): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <Header />
-<ErrorMessage />
+
       <main className={cn('page__main page__main--index', {
         'page__main--index-empty': !offersByActiveCity.length
       })}
