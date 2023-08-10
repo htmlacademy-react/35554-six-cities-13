@@ -21,7 +21,7 @@ export enum AppRoute {
   Root = '/',
   Login = '/login',
   Favorites = '/favorites',
-  Offer = '/offer/:id',
+  Offer = '/offer',
   Other = '*',
 }
 
@@ -40,10 +40,9 @@ export const SortingOffers = {
 
 export enum APIRoute {
   Offers = '/offers',
-  Offer = '/offers/offerId',
-  OffersNearby = '/offers/offerId/nearby',
+  OffersNearby = '/nearby',
   Favorites = '/favorite',
-  Comments = '/comments/offersId',
+  Reviews = '/comments',
   Login = '/login',
   Logout = '/logout',
 }

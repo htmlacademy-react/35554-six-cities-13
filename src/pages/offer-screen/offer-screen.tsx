@@ -1,39 +1,37 @@
 import Header from '../../components/header/header';
 import {useParams} from 'react-router-dom';
-import {FullOffer, FullOffers, Offers} from '../../types/offer';
 import PlaceCard from '../../components/place-card/place-card';
 import Reviews from '../../components/reviews/reviews';
-import {TReviews} from '../../types/reviews';
 import Map from '../../components/map/map';
 import {getRating} from '../../utils/offers';
-import {useAppDispatch} from '../../hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks';
 import {useEffect} from 'react';
-import {dropOffer, fetchOffer} from '../../store/action';
+import {dropOffer} from '../../store/action';
+import {fetchOffer, fetchOffersNearby} from '../../store/api-actions';
 
-type OfferScreenProps = {
-  offers: Offers;
-  fullOffers: FullOffers;
-  reviews: TReviews;
-};
-
-function OfferScreen({fullOffers, offers, reviews}: OfferScreenProps): JSX.Element {
-  const {id} = useParams();
+function OfferScreen(): JSX.Element {
+  const {offerId} = useParams();
+  console.log(offerId)
+  debugger
   const dispatch = useAppDispatch();
-  // const currentOffer = useAppSelector((state) => state.offer);
-  const offerCurrent = fullOffers.find((item) => item.id === id) as FullOffer;
+  const currentOffer = useAppSelector((state) => state.offer);
+  const offersNearby = useAppSelector((state) => state.offersNearby);
+  // const offerCurrent = fullOffers.find((item) => item.id === offerId) as FullOffer;
 
-  const {images, description, isPremium, isFavorite, title, rating, type, bedrooms, maxAdults, price, goods} = offerCurrent;
-  const {avatarUrl, name, isPro} = offerCurrent.host;
+  // const {images, description, isPremium, isFavorite, title, rating, type, bedrooms, maxAdults, price, goods} = offerCurrent;
+  // const {avatarUrl, name, isPro} = offerCurrent.host;
 
   useEffect(() => {
-    if (id) {
-      dispatch(fetchOffer(id));
+    if (offerId) {
+      dispatch(fetchOffer(offerId));
+      console.log(fetchOffer(offerId))
+      dispatch(fetchOffersNearby(offerId));
     }
 
     return () => {
       dispatch(dropOffer());
     };
-  }, [id, dispatch]);
+  }, [offerId, dispatch]);
 
   return (
     <div className="page">
@@ -43,7 +41,7 @@ function OfferScreen({fullOffers, offers, reviews}: OfferScreenProps): JSX.Eleme
         <section className="offer">
           <div className="offer__gallery-container container">
             <div className="offer__gallery">
-              {images.map((image: string) => (
+              {currentOffer.images.map((image: string) => (
                 <div className="offer__image-wrapper" key={image}>
                   <img className="offer__image" src={image} alt="Photo studio"/>
                 </div>
@@ -52,14 +50,14 @@ function OfferScreen({fullOffers, offers, reviews}: OfferScreenProps): JSX.Eleme
           </div>
           <div className="offer__container container">
             <div className="offer__wrapper">
-              {isPremium &&
+              {currentOffer.isPremium &&
                 <div className="offer__mark">
                   <span>Premium</span>
                 </div>}
               <div className="offer__name-wrapper">
-                <h1 className="offer__name">{title}</h1>
+                <h1 className="offer__name">{currentOffer.title}</h1>
                 <button
-                  className={isFavorite
+                  className={currentOffer.isFavorite
                     ? 'offer__bookmark-button offer__bookmark-button--active button'
                     : 'offer__bookmark-button button'}
                   type="button"
@@ -72,30 +70,30 @@ function OfferScreen({fullOffers, offers, reviews}: OfferScreenProps): JSX.Eleme
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
-                  <span style={{width: `${getRating(rating)}%`}}></span>
+                  <span style={{width: `${getRating(currentOffer.rating)}%`}}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
-                <span className="offer__rating-value rating__value">{rating}</span>
+                <span className="offer__rating-value rating__value">{currentOffer.rating}</span>
               </div>
               <ul className="offer__features">
                 <li className="offer__feature offer__feature--entire">
-                  {type}
+                  {currentOffer.type}
                 </li>
                 <li className="offer__feature offer__feature--bedrooms">
-                  {bedrooms} Bedrooms
+                  {currentOffer.bedrooms} Bedrooms
                 </li>
                 <li className="offer__feature offer__feature--adults">
-                  Max {maxAdults} adults
+                  Max {currentOffer.maxAdults} adults
                 </li>
               </ul>
               <div className="offer__price">
-                <b className="offer__price-value">&euro;{price}</b>
+                <b className="offer__price-value">&euro;{currentOffer.price}</b>
                 <span className="offer__price-text">&nbsp;night</span>
               </div>
               <div className="offer__inside">
                 <h2 className="offer__inside-title">What&apos;s inside</h2>
                 <ul className="offer__inside-list">
-                  {goods.map((item: string) => (
+                  {currentOffer.goods.map((item: string) => (
                     <li className="offer__inside-item" key={item}>{item}</li>
                   ))}
                 </ul>
@@ -104,25 +102,25 @@ function OfferScreen({fullOffers, offers, reviews}: OfferScreenProps): JSX.Eleme
                 <h2 className="offer__host-title">Meet the host</h2>
                 <div className="offer__host-user user">
                   <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
-                    <img className="offer__avatar user__avatar" src={avatarUrl} width={74} height={74}
+                    <img className="offer__avatar user__avatar" src={currentOffer.host.avatarUrl} width={74} height={74}
                       alt="Host avatar"
                     />
                   </div>
                   <span className="offer__user-name">
-                    {name}
+                    {currentOffer.host.name}
                   </span>
-                  {isPro &&
+                  {currentOffer.host.isPro &&
                     <span className="offer__user-status">
                       Pro
                     </span>}
                 </div>
                 <div className="offer__description">
                   <p className="offer__text">
-                    {description}
+                    {currentOffer.description}
                   </p>
                 </div>
               </div>
-              <Reviews reviews={reviews} />
+              <Reviews reviews={offersNearby} />
             </div>
           </div>
           <section className="offer__map map">
@@ -133,7 +131,7 @@ function OfferScreen({fullOffers, offers, reviews}: OfferScreenProps): JSX.Eleme
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              {offers.map((offer) => (
+              {offersNearby.map((offer) => (
                 <PlaceCard key={offer.id} item={offer} className={'near-places'} />)).slice(0,3)}
             </div>
           </section>

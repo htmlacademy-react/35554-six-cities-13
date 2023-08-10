@@ -19,6 +19,7 @@ const typeHousing = {
 
 function PlaceCard({item, className, onMouseEnter, onMouseLeave}: PlaceCardProps): JSX.Element {
   const {id, type, title, isPremium, isFavorite, price, previewImage, rating} = item;
+  console.log(id)
 
   const handleMouseEnter = () => {
     onMouseEnter?.(id);
@@ -40,7 +41,7 @@ function PlaceCard({item, className, onMouseEnter, onMouseLeave}: PlaceCardProps
         </div>}
 
       <div className={`${className}__image-wrapper place-card__image-wrapper`}>
-        <Link to={generatePath(AppRoute.Offer, {id: item.id})}>
+        <Link to={`${AppRoute.Offer}/${id}`}>
           <img className="place-card__image" src={previewImage} width={260} height={200} alt="Place image"/>
         </Link>
       </div>
