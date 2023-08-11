@@ -19,7 +19,6 @@ const typeHousing = {
 
 function PlaceCard({item, className, onMouseEnter, onMouseLeave}: PlaceCardProps): JSX.Element {
   const {id, type, title, isPremium, isFavorite, price, previewImage, rating} = item;
-  console.log(id)
 
   const handleMouseEnter = () => {
     onMouseEnter?.(id);
