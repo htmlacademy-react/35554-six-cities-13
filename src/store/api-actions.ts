@@ -5,9 +5,9 @@ import {Offer, Offers} from '../types/offer';
 import {APIRoute, AppRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR} from '../const';
 import {
   fillOffersList,
-  loadOffer,
+  loadOffer, loadOffersNearby, loadReviews,
   redirectToRoute,
-  requireAuthorization,
+  requireAuthorization, setCurrentUser,
   setError,
   setOffersDataLoadingStatus
 } from './action';
@@ -49,7 +49,7 @@ export const fetchOffer = createAsyncThunk<Offer, Offer['id'], {
   'offer/fetchOffer',
   async (offerId, {dispatch, extra: api}) => {
     const {data} = await api.get<Offer>(`${APIRoute.Offers}/${offerId}`);
-
+    dispatch(loadOffer(data));
     return data;
   }
 );
@@ -60,10 +60,9 @@ export const fetchReviews = createAsyncThunk<TReviews, Offer['id'], {
   extra: AxiosInstance;
 }>(
   'reviews/fetchReviews',
-  async (offerId, {extra: api}) => {
+  async (offerId, {dispatch, extra: api}) => {
     const {data} = await api.get<TReviews>(`${APIRoute.Reviews}/${offerId}`);
-
-    return data;
+    dispatch(loadReviews(data));
   }
 );
 
@@ -73,10 +72,9 @@ export const fetchOffersNearby = createAsyncThunk<Offers, Offer['id'], {
   extra: AxiosInstance;
 }>(
   'offersNearby/fetchOffersNearby',
-  async (offerId, {extra: api}) => {
+  async (offerId, {dispatch, extra: api}) => {
     const {data} = await api.get<Offers>(`${APIRoute.Offers}/${offerId}${APIRoute.OffersNearby}`);
-
-    return data;
+    dispatch(loadOffersNearby(data));
   }
 );
 
@@ -116,9 +114,10 @@ export const loginAction = createAsyncThunk<UserData, AuthData, {
 }>(
   'user/login',
   async ({login: email, password}, {dispatch, extra: api}) => {
-    const {data: {token}} = await api.post<UserData>(APIRoute.Login, {email, password});
-    saveToken(token);
+    const {data} = await api.post<UserData>(APIRoute.Login, {email, password});
+    saveToken(data.token);
     dispatch(requireAuthorization(AuthorizationStatus.Auth));
+    dispatch(setCurrentUser(data));
     dispatch(redirectToRoute(AppRoute.Root));
   },
 );

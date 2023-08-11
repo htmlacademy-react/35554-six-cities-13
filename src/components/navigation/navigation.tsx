@@ -11,8 +11,7 @@ import {logoutAction} from '../../store/api-actions';
 function Navigation(): JSX.Element {
   const dispatch = useAppDispatch();
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  console.log(authorizationStatus)
-  // const currentUser = useAppSelector((state) => state.currentUser);
+  const currentUser = useAppSelector((state) => state.currentUser);
 
   return (
     <nav className="header__nav">
@@ -24,7 +23,7 @@ function Navigation(): JSX.Element {
                 <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Favorites}>
                   <div className="header__avatar-wrapper user__avatar-wrapper">
                   </div>
-                  <span className="header__user-name user__name">Email</span>
+                  <span className="header__user-name user__name">{currentUser?.email}</span>
                   <span className="header__favorite-count">3</span>
                 </Link>
               </li>

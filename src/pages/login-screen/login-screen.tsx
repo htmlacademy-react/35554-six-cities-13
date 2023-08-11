@@ -22,6 +22,8 @@ function LoginScreen(): JSX.Element {
     }
   };
 
+  // const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{1,}$/;
+
   return (
     <div className="page page--gray page--login">
       <header className="header">
@@ -65,7 +67,7 @@ function LoginScreen(): JSX.Element {
                   name="password"
                   id="password"
                   placeholder="Password"
-                  required=""
+                  required
                 />
               </div>
               <button className="login__submit form__submit button" type="submit">Sign in</button>
