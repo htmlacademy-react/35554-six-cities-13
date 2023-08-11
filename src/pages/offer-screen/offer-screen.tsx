@@ -1,39 +1,35 @@
 import Header from '../../components/header/header';
 import {useParams} from 'react-router-dom';
-import {FullOffer, FullOffers, Offers} from '../../types/offer';
 import PlaceCard from '../../components/place-card/place-card';
 import Reviews from '../../components/reviews/reviews';
-import {TReviews} from '../../types/reviews';
 import Map from '../../components/map/map';
 import {getRating} from '../../utils/offers';
-import {useAppDispatch} from '../../hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks';
 import {useEffect} from 'react';
-import {dropOffer, fetchOffer} from '../../store/action';
+import {dropOffer} from '../../store/action';
+import {fetchOffer, fetchOffersNearby} from '../../store/api-actions';
 
-type OfferScreenProps = {
-  offers: Offers;
-  fullOffers: FullOffers;
-  reviews: TReviews;
-};
+function OfferScreen(): JSX.Element {
+  const {offerId} = useParams();
 
-function OfferScreen({fullOffers, offers, reviews}: OfferScreenProps): JSX.Element {
-  const {id} = useParams();
   const dispatch = useAppDispatch();
-  // const currentOffer = useAppSelector((state) => state.offer);
-  const offerCurrent = fullOffers.find((item) => item.id === id) as FullOffer;
+  const currentOffer = useAppSelector((state) => state.offer);
+  const offersNearby = useAppSelector((state) => state.offersNearby);
+  // const offerCurrent = fullOffers.find((item) => item.id === offerId) as FullOffer;
 
-  const {images, description, isPremium, isFavorite, title, rating, type, bedrooms, maxAdults, price, goods} = offerCurrent;
-  const {avatarUrl, name, isPro} = offerCurrent.host;
+  const {images, description, isPremium, isFavorite, title, rating, type, bedrooms, maxAdults, price, goods} = currentOffer;
+  const {avatarUrl, name, isPro} = currentOffer.host;
 
   useEffect(() => {
-    if (id) {
-      dispatch(fetchOffer(id));
+    if (offerId) {
+      dispatch(fetchOffer(offerId));
+      dispatch(fetchOffersNearby(offerId));
     }
 
     return () => {
       dispatch(dropOffer());
     };
-  }, [id, dispatch]);
+  }, [offerId, dispatch]);
 
   return (
     <div className="page">
@@ -122,18 +118,18 @@ function OfferScreen({fullOffers, offers, reviews}: OfferScreenProps): JSX.Eleme
                   </p>
                 </div>
               </div>
-              <Reviews reviews={reviews} />
+              <Reviews reviews={offersNearby} />
             </div>
           </div>
           <section className="offer__map map">
-            <Map city={offerCurrent.city} offers={offers} selectedOffer={null} />
+            <Map city={currentOffer.city} offers={offersNearby} selectedOffer={null} />
           </section>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              {offers.map((offer) => (
+              {offersNearby.map((offer) => (
                 <PlaceCard key={offer.id} item={offer} className={'near-places'} />)).slice(0,3)}
             </div>
           </section>

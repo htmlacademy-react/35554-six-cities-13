@@ -1,6 +1,5 @@
 import Logo from '../logo/logo';
 import Navigation from '../navigation/navigation';
-import {AuthorizationStatus} from '../../const';
 
 function Header(): JSX.Element {
   return (
@@ -10,7 +9,7 @@ function Header(): JSX.Element {
           <div className="header__left">
             <Logo />
           </div>
-          <Navigation authorizationStatus={AuthorizationStatus.Auth} />
+          <Navigation />
         </div>
       </div>
     </header>

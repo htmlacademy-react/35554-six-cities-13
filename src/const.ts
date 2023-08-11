@@ -4,6 +4,8 @@ export const URL_MARKER_CURRENT = 'img/pin-active.svg';
 export const TILE_LAYER = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
 export const COPYRIGHT = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
 
+export const TIMEOUT_SHOW_ERROR = 2000;
+
 const CITIES = [
   'Paris',
   'Cologne',
@@ -19,7 +21,7 @@ export enum AppRoute {
   Root = '/',
   Login = '/login',
   Favorites = '/favorites',
-  Offer = '/offer/:id',
+  Offer = '/offer',
   Other = '*',
 }
 
@@ -38,10 +40,9 @@ export const SortingOffers = {
 
 export enum APIRoute {
   Offers = '/offers',
-  Offer = '/offers/offerId',
-  OffersNearby = '/offers/offerId/nearby',
+  OffersNearby = '/nearby',
   Favorites = '/favorite',
-  Comments = '/comments/offersId',
+  Reviews = '/comments',
   Login = '/login',
   Logout = '/logout',
 }
