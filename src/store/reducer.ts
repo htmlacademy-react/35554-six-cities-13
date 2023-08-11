@@ -4,21 +4,22 @@ import {
   dropOffer,
   fillOffersList, loadOffer, loadOffersNearby, loadReviews,
   requireAuthorization, setCurrentUser,
-  setError,
+  setError, setOfferLoadingStatus,
   setOffersDataLoadingStatus
 } from './action';
 import {AuthorizationStatus, DEFAULT_CITY} from '../const';
-import {Offer, Offers} from '../types/offer';
+import {FullOffer, Offers} from '../types/offer';
 import {UserData} from '../types/user-data';
 
 const initialState: {
   offers: Offers;
-  offer: Offer | null;
+  offer: FullOffer | null;
   favorites: Offers;
   offersNearby: Offers;
   city: string;
   currentUser: UserData | null;
   isOffersDataLoading: boolean;
+  isOfferLoading: boolean;
   authorizationStatus: AuthorizationStatus;
   error: string | null;
 } = {
@@ -29,6 +30,7 @@ const initialState: {
   city: DEFAULT_CITY,
   currentUser: null,
   isOffersDataLoading: false,
+  isOfferLoading: false,
   authorizationStatus: AuthorizationStatus.Unknown,
   error: null,
 };
@@ -58,6 +60,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setOffersDataLoadingStatus, (state, action) => {
       state.isOffersDataLoading = action.payload;
+    })
+    .addCase(setOfferLoadingStatus, (state, action) => {
+      state.isOfferLoading = action.payload;
     })
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;

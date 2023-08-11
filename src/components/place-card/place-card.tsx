@@ -67,7 +67,7 @@ function PlaceCard({item, className, onMouseEnter, onMouseLeave}: PlaceCardProps
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={generatePath(AppRoute.Offer, {id: item.id})}>{title}</Link>
+          <Link to={`${AppRoute.Offer}/${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{typeHousing[type]}</p>
       </div>

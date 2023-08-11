@@ -8,6 +8,9 @@ import {useAppDispatch, useAppSelector} from '../../hooks';
 import {useEffect} from 'react';
 import {dropOffer} from '../../store/action';
 import {fetchOffer, fetchOffersNearby} from '../../store/api-actions';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
+import Spinner from '../../components/spinner/spinner';
+import {FullOffer} from '../../types/offer';
 
 function OfferScreen(): JSX.Element {
   const {offerId} = useParams();
@@ -15,9 +18,10 @@ function OfferScreen(): JSX.Element {
   const dispatch = useAppDispatch();
   const currentOffer = useAppSelector((state) => state.offer);
   const offersNearby = useAppSelector((state) => state.offersNearby);
-  // const offerCurrent = fullOffers.find((item) => item.id === offerId) as FullOffer;
+  const isOfferLoading = useAppSelector((state) => state.isOfferLoading);
 
-  const {images, description, isPremium, isFavorite, title, rating, type, bedrooms, maxAdults, price, goods} = currentOffer;
+  const {images, description, isPremium, isFavorite,
+    title, rating, type, bedrooms, maxAdults, price, goods} = currentOffer as FullOffer;
   const {avatarUrl, name, isPro} = currentOffer.host;
 
   useEffect(() => {
@@ -25,11 +29,15 @@ function OfferScreen(): JSX.Element {
       dispatch(fetchOffer(offerId));
       dispatch(fetchOffersNearby(offerId));
     }
-
-    return () => {
-      dispatch(dropOffer());
-    };
   }, [offerId, dispatch]);
+
+  if (!currentOffer) {
+    return <NotFoundScreen />;
+  }
+
+  if (isOfferLoading) {
+    return <Spinner />;
+  }
 
   return (
     <div className="page">

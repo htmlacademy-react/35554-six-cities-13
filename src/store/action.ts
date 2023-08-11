@@ -21,6 +21,9 @@ export const dropOffer = createAction('offer/dropOffer');
 export const setOffersDataLoadingStatus = createAction<boolean>
 ('data/setOffersDataLoadingStatus');
 
+export const setOfferLoadingStatus = createAction<boolean>
+('data/setOfferLoadingStatus');
+
 export const requireAuthorization = createAction<AuthorizationStatus>
 ('user/requireAuthorization');
 
