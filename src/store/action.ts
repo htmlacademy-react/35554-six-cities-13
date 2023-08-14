@@ -1,5 +1,5 @@
 import {createAction} from '@reduxjs/toolkit';
-import {FullOffer, Offer, Offers} from '../types/offer';
+import {FullOffer, Offers} from '../types/offer';
 import {AppRoute, AuthorizationStatus} from '../const';
 import {ReviewForm, TReviews} from '../types/reviews';
 import {UserData} from '../types/user-data';

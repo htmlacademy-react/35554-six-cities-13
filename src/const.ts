@@ -7,6 +7,8 @@ export const COPYRIGHT = '&copy; <a href="https://www.openstreetmap.org/copyrigh
 export const TIMEOUT_SHOW_ERROR = 2000;
 export const MAX_COUNT_REVIEWS = 10;
 export const MAX_COUNT_OFFERS_NEARBY = 3;
+export const MIN_COMMENT_LENGTH = 50;
+export const MAX_COMMENT_LENGTH = 300;
 
 const CITIES = [
   'Paris',

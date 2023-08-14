@@ -2,6 +2,7 @@ import {ChangeEvent, FormEvent, Fragment, useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {postNewReviewAction} from '../../store/api-actions';
 import {setReviewPostedStatus} from '../../store/action';
+import {MAX_COMMENT_LENGTH, MIN_COMMENT_LENGTH} from "../../const";
 
 type FormReviewsProps = {
   offerId: string;
@@ -23,8 +24,8 @@ function FormReviews({offerId}: FormReviewsProps): JSX.Element {
     dispatch(postNewReviewAction({offerId, comment, rating}));
   };
 
-  const isFormValid = detailsReview.rating !== 0 && detailsReview.comment.length >= 50
-    && detailsReview.comment.length <= 300;
+  const isFormValid = detailsReview.rating !== 0 && detailsReview.comment.length >= MIN_COMMENT_LENGTH
+    && detailsReview.comment.length <= MAX_COMMENT_LENGTH;
 
   const handleFormReviewSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();

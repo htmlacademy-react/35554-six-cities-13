@@ -1,6 +1,6 @@
 import * as dayjs from 'dayjs';
 import {Offer, Offers, TSorting} from '../types/offer';
-import {Review} from "../types/reviews";
+import {Review} from '../types/reviews';
 
 const DateFormat = {
   DATE_SHORT: 'MMMM YYYY',
