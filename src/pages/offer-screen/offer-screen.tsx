@@ -6,38 +6,39 @@ import Map from '../../components/map/map';
 import {getRating} from '../../utils/offers';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {useEffect} from 'react';
-import {dropOffer} from '../../store/action';
-import {fetchOffer, fetchOffersNearby} from '../../store/api-actions';
+import {fetchOffer, fetchOffersNearby, fetchReviews} from '../../store/api-actions';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import Spinner from '../../components/spinner/spinner';
-import {FullOffer} from '../../types/offer';
+import {MAX_COUNT_OFFERS_NEARBY} from '../../const';
 
 function OfferScreen(): JSX.Element {
   const {offerId} = useParams();
-
   const dispatch = useAppDispatch();
   const currentOffer = useAppSelector((state) => state.offer);
   const offersNearby = useAppSelector((state) => state.offersNearby);
   const isOfferLoading = useAppSelector((state) => state.isOfferLoading);
-
-  const {images, description, isPremium, isFavorite,
-    title, rating, type, bedrooms, maxAdults, price, goods} = currentOffer as FullOffer;
-  const {avatarUrl, name, isPro} = currentOffer.host;
+  const reviews = useAppSelector((state) => state.reviews);
+  const offersNearbyToShow = offersNearby.slice(0, MAX_COUNT_OFFERS_NEARBY);
 
   useEffect(() => {
     if (offerId) {
       dispatch(fetchOffer(offerId));
       dispatch(fetchOffersNearby(offerId));
+      dispatch(fetchReviews(offerId));
     }
   }, [offerId, dispatch]);
+
+  if (isOfferLoading) {
+    return <Spinner />;
+  }
 
   if (!currentOffer) {
     return <NotFoundScreen />;
   }
 
-  if (isOfferLoading) {
-    return <Spinner />;
-  }
+  const {images, description, isPremium, isFavorite,
+    title, rating, type, bedrooms, maxAdults, price, goods, host} = currentOffer;
+  const {avatarUrl, name, isPro} = host;
 
   return (
     <div className="page">
@@ -126,19 +127,23 @@ function OfferScreen(): JSX.Element {
                   </p>
                 </div>
               </div>
-              <Reviews reviews={offersNearby} />
+              <Reviews offerId={offerId} reviews={reviews} />
             </div>
           </div>
           <section className="offer__map map">
-            <Map city={currentOffer.city} offers={offersNearby} selectedOffer={null} />
+            <Map
+              city={currentOffer.city}
+              offers={offersNearbyToShow.concat(currentOffer)}
+              selectedOffer={currentOffer.id}
+            />
           </section>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              {offersNearby.map((offer) => (
-                <PlaceCard key={offer.id} item={offer} className={'near-places'} />)).slice(0,3)}
+              {offersNearbyToShow.map((offer) => (
+                <PlaceCard key={offer.id} item={offer} className={'near-places'} />))}
             </div>
           </section>
         </div>

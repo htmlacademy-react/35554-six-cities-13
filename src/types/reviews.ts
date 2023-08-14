@@ -1,10 +1,13 @@
 import {Host} from './offer';
 
-export type Review = {
-  id: string;
+export type ReviewForm = {
   comment: string;
-  date: string;
   rating: number;
+}
+
+export type Review = ReviewForm & {
+  id: string;
+  date: string;
   user: Host;
 }
 
