@@ -1,5 +1,5 @@
 import MainPage from '../../pages/main-page/main-page';
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import LoginScreen from '../../pages/login-screen/login-screen';
 import FavoritesScreen from '../../pages/favorites-screen/favorites-screen';
 import {AppRoute, AuthorizationStatus} from '../../const';

@@ -1,36 +1,79 @@
-import {ChangeEvent, Fragment, useState} from 'react';
+import {ChangeEvent, FormEvent, Fragment, useEffect, useState} from 'react';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {postNewReviewAction} from '../../store/api-actions';
+import {setReviewPostedStatus} from '../../store/action';
+import {MAX_COMMENT_LENGTH, MIN_COMMENT_LENGTH} from '../../const';
 
-function FormReviews(): JSX.Element {
-  const ratingValues = [
-    5,
-    4,
-    3,
-    2,
-    1,
-  ];
-  const [formData, setFormData] = useState({
-    rating: '',
+type FormReviewsProps = {
+  offerId: string;
+};
+
+function FormReviews({offerId}: FormReviewsProps): JSX.Element {
+  const dispatch = useAppDispatch();
+  const ratingValues = [5, 4, 3, 2, 1,];
+  const [detailsReview, setDetailsReview] = useState({
+    rating: 0,
     comment: '',
+    offerId: offerId,
   });
+  const isReviewPosted = useAppSelector((state) => state.isReviewPosted);
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
-    const {value} = evt.target;
-    setFormData({...formData, rating: value});
+  const onReviewSubmit = (rating: number, comment: string) => {
+    dispatch(postNewReviewAction({offerId, comment, rating}));
   };
 
-  const handleTextareaChange = (evt: ChangeEvent<HTMLTextAreaElement>) => {
-    const {value} = evt.target;
-    setFormData({...formData, comment: value});
+  const isFormValid = detailsReview.rating !== 0 && detailsReview.comment.length >= MIN_COMMENT_LENGTH
+    && detailsReview.comment.length <= MAX_COMMENT_LENGTH;
+
+  const handleFormReviewSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+
+    if (isSubmitting) {
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    onReviewSubmit(detailsReview.rating, detailsReview.comment);
+
+    if (isReviewPosted) {
+      (evt.target as HTMLFormElement).reset();
+      setDetailsReview({rating: 0, comment: '', offerId});
+      dispatch(setReviewPostedStatus(false));
+    }
+
+    setIsSubmitting(false);
   };
+
+  useEffect(() => {
+    if (isFormValid) {
+      setIsSubmitDisabled(false);
+    } else {
+      setIsSubmitDisabled(true);
+    }
+  }, [isFormValid]);
 
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form
+      className="reviews__form form"
+      action="#"
+      method="post"
+      onSubmit={handleFormReviewSubmit}
+    >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {ratingValues.map((ratingValue) => (
           <Fragment key={ratingValue}>
-            <input className="form__rating-input visually-hidden" name="rating" value={ratingValue}
-              id={`${ratingValue}-stars`} type="radio" onChange={handleInputChange}
+            <input
+              className="form__rating-input visually-hidden"
+              name="rating"
+              value={ratingValue}
+              id={`${ratingValue}-stars`}
+              type="radio"
+              onChange={(evt:ChangeEvent<HTMLInputElement>) =>
+                setDetailsReview({...detailsReview, rating: Number(evt.target.value)})}
             />
             <label htmlFor={`${ratingValue}-stars`} className="reviews__rating-label form__rating-label" title="perfect">
               <svg className="form__star-image" width={37} height={33}>
@@ -43,7 +86,8 @@ function FormReviews(): JSX.Element {
 
       <textarea className="reviews__textarea form__textarea" id="review" name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
-        onChange={handleTextareaChange}
+        onChange={(evt:ChangeEvent<HTMLTextAreaElement>) =>
+          setDetailsReview({...detailsReview, comment: evt.target.value})}
       >
       </textarea>
       <div className="reviews__button-wrapper">
@@ -51,7 +95,13 @@ function FormReviews(): JSX.Element {
           To submit review please make sure to set <span className="reviews__star">rating</span> and
           describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled="">Submit</button>
+        <button
+          className="reviews__submit form__submit button"
+          type="submit"
+          disabled={isSubmitDisabled || isSubmitting}
+        >
+          Submit
+        </button>
       </div>
     </form>
   );
