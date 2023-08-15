@@ -2,7 +2,7 @@ import {ChangeEvent, FormEvent, Fragment, useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {postNewReviewAction} from '../../store/api-actions';
 import {setReviewPostedStatus} from '../../store/action';
-import {MAX_COMMENT_LENGTH, MIN_COMMENT_LENGTH} from "../../const";
+import {MAX_COMMENT_LENGTH, MIN_COMMENT_LENGTH} from '../../const';
 
 type FormReviewsProps = {
   offerId: string;
@@ -39,7 +39,7 @@ function FormReviews({offerId}: FormReviewsProps): JSX.Element {
     onReviewSubmit(detailsReview.rating, detailsReview.comment);
 
     if (isReviewPosted) {
-      evt.target.reset();
+      (evt.target as HTMLFormElement).reset();
       setDetailsReview({rating: 0, comment: '', offerId});
       dispatch(setReviewPostedStatus(false));
     }
@@ -53,7 +53,7 @@ function FormReviews({offerId}: FormReviewsProps): JSX.Element {
     } else {
       setIsSubmitDisabled(true);
     }
-  });
+  }, [isFormValid]);
 
   return (
     <form
