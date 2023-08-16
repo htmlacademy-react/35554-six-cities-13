@@ -3,11 +3,11 @@ import {
   changeCity,
   dropOffer,
   fillOffersList, loadOffer, loadOffersNearby, loadReviews,
-  requireAuthorization, setCurrentUser,
+  setCurrentUser,
   setError, setOfferLoadingStatus,
   setOffersDataLoadingStatus, setReviewPostedStatus
 } from './action';
-import {AuthorizationStatus, DEFAULT_CITY} from '../const';
+import {DEFAULT_CITY} from '../const';
 import {FullOffer, Offers} from '../types/offer';
 import {UserData} from '../types/user-data';
 import {TReviews} from '../types/reviews';
@@ -23,7 +23,6 @@ const initialState: {
   isOffersDataLoading: boolean;
   isOfferLoading: boolean;
   isReviewPosted: boolean;
-  authorizationStatus: AuthorizationStatus;
   error: string | null;
 } = {
   offers: [],
@@ -36,7 +35,6 @@ const initialState: {
   isOffersDataLoading: false,
   isOfferLoading: false,
   isReviewPosted: false,
-  authorizationStatus: AuthorizationStatus.Unknown,
   error: null,
 };
 
@@ -71,9 +69,6 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setReviewPostedStatus, (state, action) => {
       state.isReviewPosted = action.payload;
-    })
-    .addCase(requireAuthorization, (state, action) => {
-      state.authorizationStatus = action.payload;
     })
     .addCase(setError, (state, action) => {
       state.error = action.payload;

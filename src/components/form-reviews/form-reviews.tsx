@@ -39,7 +39,7 @@ function FormReviews({offerId}: FormReviewsProps): JSX.Element {
     onReviewSubmit(detailsReview.rating, detailsReview.comment);
 
     if (isReviewPosted) {
-      (evt.target as HTMLFormElement).reset();
+      (evt.currentTarget as HTMLFormElement).reset();
       setDetailsReview({rating: 0, comment: '', offerId});
       dispatch(setReviewPostedStatus(false));
     }

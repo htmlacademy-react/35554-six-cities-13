@@ -28,9 +28,6 @@ export const setOfferLoadingStatus = createAction<boolean>
 
 export const setReviewPostedStatus = createAction<boolean>('data/setReviewPostedStatus');
 
-export const requireAuthorization = createAction<AuthorizationStatus>
-('user/requireAuthorization');
-
 export const setError = createAction<string | null>('offer/setError');
 
 export const redirectToRoute = createAction<AppRoute>('offer/redirectToRoute');
