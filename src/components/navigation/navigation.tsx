@@ -4,10 +4,6 @@ import {Link} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {logoutAction} from '../../store/api-actions';
 
-// type NavigationProps = {
-//   authorizationStatus: AuthorizationStatus;
-// }
-
 function Navigation(): JSX.Element {
   const dispatch = useAppDispatch();
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
