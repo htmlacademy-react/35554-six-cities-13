@@ -10,11 +10,13 @@ import cn from 'classnames';
 import {TSorting} from '../../types/offer';
 import {SortingOffers} from '../../const';
 import {sorting} from '../../utils/offers';
+import {getCity} from '../../store/app-process/selectors';
+import {getOffers} from '../../store/data-process/selectors';
 
 function MainPage(): JSX.Element {
   // const dispatch = useAppDispatch();
-  const activeCity = useAppSelector((store) => store.city);
-  const offers = useAppSelector((store) => store.offers);
+  const activeCity = useAppSelector(getCity);
+  const offers = useAppSelector(getOffers);
 
   const [selectedSorting, setSelectedSorting] = useState<TSorting>(SortingOffers.Popular);
 

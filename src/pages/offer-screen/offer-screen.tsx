@@ -10,14 +10,15 @@ import {fetchOffer, fetchOffersNearby, fetchReviews} from '../../store/api-actio
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import Spinner from '../../components/spinner/spinner';
 import {MAX_COUNT_OFFERS_NEARBY} from '../../const';
+import {getIsOfferLoading, getOffer, getOffersNearby, getReviews} from '../../store/data-process/selectors';
 
 function OfferScreen(): JSX.Element {
   const {offerId} = useParams();
   const dispatch = useAppDispatch();
-  const currentOffer = useAppSelector((state) => state.offer);
-  const offersNearby = useAppSelector((state) => state.offersNearby);
-  const isOfferLoading = useAppSelector((state) => state.isOfferLoading);
-  const reviews = useAppSelector((state) => state.reviews);
+  const currentOffer = useAppSelector(getOffer);
+  const offersNearby = useAppSelector(getOffersNearby);
+  const isOfferLoading = useAppSelector(getIsOfferLoading);
+  const reviews = useAppSelector(getReviews);
   const offersNearbyToShow = offersNearby.slice(0, MAX_COUNT_OFFERS_NEARBY);
 
   useEffect(() => {

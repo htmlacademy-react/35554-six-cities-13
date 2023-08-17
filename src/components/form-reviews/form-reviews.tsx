@@ -1,8 +1,9 @@
 import {ChangeEvent, FormEvent, Fragment, useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {postNewReviewAction} from '../../store/api-actions';
-import {setReviewPostedStatus} from '../../store/action';
 import {MAX_COMMENT_LENGTH, MIN_COMMENT_LENGTH} from '../../const';
+import {getIsReviewPosted} from '../../store/data-process/selectors';
+import {setReviewPostedStatus} from '../../store/data-process/data-process';
 
 type FormReviewsProps = {
   offerId: string;
@@ -16,7 +17,7 @@ function FormReviews({offerId}: FormReviewsProps): JSX.Element {
     comment: '',
     offerId: offerId,
   });
-  const isReviewPosted = useAppSelector((state) => state.isReviewPosted);
+  const isReviewPosted = useAppSelector(getIsReviewPosted);
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
 

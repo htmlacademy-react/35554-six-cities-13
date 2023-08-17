@@ -2,7 +2,7 @@ import {Link} from 'react-router-dom';
 import {AppRoute, CITIES} from '../../const';
 import cn from 'classnames';
 import {useAppDispatch} from '../../hooks';
-import {changeCity} from '../../store/action';
+import {changeCity} from '../../store/app-process/app-process';
 
 type LocationsProps = {
   location: string;

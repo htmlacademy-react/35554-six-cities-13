@@ -3,11 +3,13 @@ import {Fragment} from 'react';
 import {Link} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {logoutAction} from '../../store/api-actions';
+import {getAuthorizationStatus} from '../../store/user-process/selectors';
+import {setCurrentUser} from '../../store/user-process/user-process';
 
 function Navigation(): JSX.Element {
   const dispatch = useAppDispatch();
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const currentUser = useAppSelector((state) => state.currentUser);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const currentUser = useAppSelector(setCurrentUser);
 
   return (
     <nav className="header__nav">

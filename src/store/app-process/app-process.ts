@@ -16,8 +16,13 @@ export const appProcess = createSlice({
     },
     setError: (state, action: PayloadAction<string | null>) => {
       state.error = action.payload;
-    }
+    },
+    clearError: (
+      state,
+      action: PayloadAction<{message: string | null; delay: number}>) => {
+      state.error = action.payload.message;
+    },
   },
 });
 
-export const {changeCity, setError} = appProcess.actions;
+export const {changeCity, setError, clearError} = appProcess.actions;

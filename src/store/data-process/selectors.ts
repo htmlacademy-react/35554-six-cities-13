@@ -1,7 +1,7 @@
 import {State} from '../../types/state';
-import {FullOffer, Offer, Offers} from '../../types/offer';
+import {FullOffer, Offers} from '../../types/offer';
 import {NameSpace} from '../../const';
-import {TReviews} from "../../types/reviews";
+import {TReviews} from '../../types/reviews';
 
 export const getOffers = (state: State): Offers =>
   state[NameSpace.Data].offers;

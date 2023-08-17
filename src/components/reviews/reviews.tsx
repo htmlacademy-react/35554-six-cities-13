@@ -4,6 +4,7 @@ import ReviewsList from '../reviews-list/reviews-list';
 import {useAppSelector} from '../../hooks';
 import {AuthorizationStatus, MAX_COUNT_REVIEWS} from '../../const';
 import {sortByDay} from '../../utils/offers';
+import {getAuthorizationStatus} from '../../store/user-process/selectors';
 
 type ReviewsProps = {
   reviews: TReviews;
@@ -11,7 +12,7 @@ type ReviewsProps = {
 };
 
 function Reviews({reviews, offerId}: ReviewsProps):JSX.Element {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const reviewsToShow = [...reviews].sort(sortByDay).slice(0, MAX_COUNT_REVIEWS);
 
   return (

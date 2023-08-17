@@ -2,7 +2,6 @@ import {useState} from 'react';
 import {SortingOffers} from '../../const';
 import {TSorting} from '../../types/offer';
 import cn from 'classnames';
-// import {sorting} from '../../utils/offers';
 
 type SortingProps = {
   selectedSorting: TSorting;

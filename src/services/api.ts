@@ -42,6 +42,7 @@ export const createAPI = ():AxiosInstance => {
     (error: AxiosError<DetailMessageType>) => {
       if (error.response && shouldDisplayError(error.response)) {
         const detailMessage = (error.response.data);
+        console.log(detailMessage.message)
         processErrorHandle(detailMessage.message);
       }
 
