@@ -6,3 +6,4 @@ export const getCity = (state: State): string =>
 
 export const getError = (state: State): string | null =>
   state[NameSpace.App].error;
+console.log(getError)
