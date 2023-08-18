@@ -22,6 +22,7 @@ export type DataProcess = {
   isOffersDataLoading: boolean;
   isOfferLoading: boolean;
   isReviewPosted: boolean;
+  hasError: boolean;
 };
 
 export type State = ReturnType<typeof store.getState>;
