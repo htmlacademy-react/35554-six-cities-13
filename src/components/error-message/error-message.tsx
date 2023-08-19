@@ -4,7 +4,6 @@ import {getError} from '../../store/app-process/selectors';
 
 function ErrorMessage(): JSX.Element | null {
   const error = useAppSelector(getError);
-  console.log(error)
 
   return (error)
     ? <div className='error-message'>{error}</div>
