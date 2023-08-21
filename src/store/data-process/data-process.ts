@@ -1,7 +1,7 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {NameSpace} from '../../const';
 import {DataProcess} from '../../types/state';
-import {fetchOffer, fetchOffersAction, fetchOffersNearby, fetchReviews, postNewReviewAction} from "../api-actions";
+import {fetchOffer, fetchOffersAction, fetchOffersNearby, fetchReviews, postNewReviewAction} from '../api-actions';
 
 const initialState: DataProcess = {
   offers: [],

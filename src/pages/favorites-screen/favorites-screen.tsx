@@ -1,8 +1,8 @@
-import Header from '../../components/header/header';
-import Footer from '../../components/footer/footer';
 import {Offers} from '../../types/offer';
 import {CITIES} from '../../const';
 import PlaceCard from '../../components/place-card/place-card';
+import FooterMemo from '../../components/footer/footer';
+import HeaderMemo from '../../components/header/header';
 
 type FavoritesScreenProps = {
   offers: Offers;
@@ -11,7 +11,7 @@ type FavoritesScreenProps = {
 function FavoritesScreen({offers}: FavoritesScreenProps) {
   return (
     <div className="page">
-      <Header />
+      <HeaderMemo />
 
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
@@ -50,7 +50,7 @@ function FavoritesScreen({offers}: FavoritesScreenProps) {
         </div>
       </main>
 
-      <Footer />
+      <FooterMemo />
     </div>
   );
 }

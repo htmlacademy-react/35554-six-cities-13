@@ -1,6 +1,4 @@
-import Header from '../../components/header/header';
 import OffersList from '../../components/offers-list/offers-list';
-import Locations from '../../components/locations/locations';
 import Map from '../../components/map/map';
 import {useCallback, useState} from 'react';
 import {useAppSelector} from '../../hooks';
@@ -12,6 +10,9 @@ import {SortingOffers} from '../../const';
 import {sorting} from '../../utils/offers';
 import {getCity} from '../../store/app-process/selectors';
 import {getOffers} from '../../store/data-process/selectors';
+import HeaderMemo from '../../components/header/header';
+import LocationsMemo from '../../components/locations/locations';
+import SortingMemo from "../../components/sorting/sorting";
 
 function MainPage(): JSX.Element {
   // const dispatch = useAppDispatch();
@@ -35,7 +36,7 @@ function MainPage(): JSX.Element {
 
   return (
     <div className="page page--gray page--main">
-      <Header />
+      <HeaderMemo />
 
       <main className={cn('page__main page__main--index', {
         'page__main--index-empty': !offersByActiveCity.length
@@ -43,7 +44,7 @@ function MainPage(): JSX.Element {
       >
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
-          <Locations location={activeCity} />
+          <LocationsMemo location={activeCity} />
         </div>
         <div className="cities">
           {offersByActiveCity.length
@@ -54,7 +55,7 @@ function MainPage(): JSX.Element {
                 <b className="places__found">
                   {offersByActiveCity.length} places to stay in {activeCity}
                 </b>
-                <Sorting
+                <SortingMemo
                   selectedSorting={selectedSorting}
                   onTypeClick={(sort) => setSelectedSorting(sort)}
                 />

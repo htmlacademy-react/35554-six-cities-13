@@ -11,7 +11,6 @@ type LocationsProps = {
 
 function Locations({location}: LocationsProps):JSX.Element {
   const dispatch = useAppDispatch();
-  console.info('<Location />: Render')
   return (
     <section className="locations container">
       <ul className="locations__list tabs__list">
@@ -31,4 +30,6 @@ function Locations({location}: LocationsProps):JSX.Element {
   );
 }
 
-export default memo(Locations);
+const LocationsMemo = memo(Locations);
+
+export default LocationsMemo;
