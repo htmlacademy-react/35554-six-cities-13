@@ -1,15 +1,24 @@
 import Logo from '../../components/logo/logo';
-import {FormEvent, useRef} from 'react';
+import {FormEvent, useRef, useState} from 'react';
 import {useAppDispatch} from '../../hooks';
 import {loginAction} from '../../store/api-actions';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
 
 function LoginScreen(): JSX.Element {
+  const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$/;
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
   const dispatch = useAppDispatch();
+
+  const [isActiveInput, setIsActiveInput] = useState<boolean>(false);
+  const [isPasswordValid, setIsPasswordValid] = useState<boolean>(false);
+
+  const handlePasswordChange = () => {
+    setIsActiveInput(true);
+    setIsPasswordValid(passwordRegex.test(passwordRef.current?.value as string || ''));
+  };
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
@@ -21,8 +30,6 @@ function LoginScreen(): JSX.Element {
       }));
     }
   };
-
-  // const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{1,}$/;
 
   return (
     <div className="page page--gray page--login">
@@ -67,8 +74,11 @@ function LoginScreen(): JSX.Element {
                   name="password"
                   id="password"
                   placeholder="Password"
+                  onInput={handlePasswordChange}
                   required
                 />
+                {isActiveInput && !isPasswordValid &&
+                  <p>Password is incorrect, it must consist of the one letter and a number.</p>}
               </div>
               <button className="login__submit form__submit button" type="submit">Sign in</button>
             </form>

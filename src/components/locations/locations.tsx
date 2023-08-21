@@ -2,7 +2,8 @@ import {Link} from 'react-router-dom';
 import {AppRoute, CITIES} from '../../const';
 import cn from 'classnames';
 import {useAppDispatch} from '../../hooks';
-import {changeCity} from '../../store/action';
+import {changeCity} from '../../store/app-process/app-process';
+import {memo} from 'react';
 
 type LocationsProps = {
   location: string;
@@ -29,4 +30,6 @@ function Locations({location}: LocationsProps):JSX.Element {
   );
 }
 
-export default Locations;
+const LocationsMemo = memo(Locations);
+
+export default LocationsMemo;

@@ -1,5 +1,6 @@
 import Logo from '../logo/logo';
 import Navigation from '../navigation/navigation';
+import {memo} from 'react';
 
 function Header(): JSX.Element {
   return (
@@ -16,4 +17,6 @@ function Header(): JSX.Element {
   );
 }
 
-export default Header;
+const HeaderMemo = memo(Header);
+
+export default HeaderMemo;
