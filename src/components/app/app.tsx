@@ -12,7 +12,7 @@ import HistoryRouter from '../history-router/history-router';
 import browserHistory from '../../browser-history';
 import {getAuthCheckedStatus, getAuthorizationStatus} from '../../store/user-process/selectors';
 import {getErrorStatus, getIsOffersLoading} from '../../store/data-process/selectors';
-import ErrorScreen from "../../pages/error-screen/error-screen";
+import ErrorScreen from '../../pages/error-screen/error-screen';
 
 function App(): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);

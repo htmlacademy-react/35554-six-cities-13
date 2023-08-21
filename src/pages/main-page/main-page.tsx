@@ -2,7 +2,7 @@ import Header from '../../components/header/header';
 import OffersList from '../../components/offers-list/offers-list';
 import Locations from '../../components/locations/locations';
 import Map from '../../components/map/map';
-import {useState} from 'react';
+import {useCallback, useState} from 'react';
 import {useAppSelector} from '../../hooks';
 import OffersEmpty from '../../components/offers-empty/offers-empty';
 import Sorting from '../../components/sorting/sorting';
@@ -25,13 +25,13 @@ function MainPage(): JSX.Element {
 
   const [selectedOffer, setSelectedOffer] = useState<string | null>(null);
 
-  const handleCardMouseEnter = (idOffer: string) => {
+  const handleCardMouseEnter = useCallback((idOffer: string) => {
     setSelectedOffer(idOffer);
-  };
+  }, []);
 
-  const handleCardMouseLeave = () => {
+  const handleCardMouseLeave = useCallback(() => {
     setSelectedOffer(null);
-  };
+  }, []);
 
   return (
     <div className="page page--gray page--main">

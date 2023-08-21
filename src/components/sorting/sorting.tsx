@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {memo, useState} from 'react';
 import {SortingOffers} from '../../const';
 import {TSorting} from '../../types/offer';
 import cn from 'classnames';
@@ -49,4 +49,4 @@ function Sorting({selectedSorting, onTypeClick}: SortingProps):JSX.Element {
   );
 }
 
-export default Sorting;
+export default memo(Sorting);

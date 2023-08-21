@@ -3,6 +3,7 @@ import {AppRoute, CITIES} from '../../const';
 import cn from 'classnames';
 import {useAppDispatch} from '../../hooks';
 import {changeCity} from '../../store/app-process/app-process';
+import {memo} from 'react';
 
 type LocationsProps = {
   location: string;
@@ -10,6 +11,7 @@ type LocationsProps = {
 
 function Locations({location}: LocationsProps):JSX.Element {
   const dispatch = useAppDispatch();
+  console.info('<Location />: Render')
   return (
     <section className="locations container">
       <ul className="locations__list tabs__list">
@@ -29,4 +31,4 @@ function Locations({location}: LocationsProps):JSX.Element {
   );
 }
 
-export default Locations;
+export default memo(Locations);

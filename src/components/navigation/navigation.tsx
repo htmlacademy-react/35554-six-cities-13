@@ -1,15 +1,14 @@
 import {AppRoute, AuthorizationStatus} from '../../const';
-import {Fragment} from 'react';
+import {Fragment, useMemo} from 'react';
 import {Link} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {logoutAction} from '../../store/api-actions';
-import {getAuthorizationStatus} from '../../store/user-process/selectors';
-import {setCurrentUser} from '../../store/user-process/user-process';
+import {getAuthorizationStatus, getCurrentUser} from '../../store/user-process/selectors';
 
 function Navigation(): JSX.Element {
   const dispatch = useAppDispatch();
-  const authorizationStatus = useAppSelector(getAuthorizationStatus);
-  const currentUser = useAppSelector(setCurrentUser);
+  const authorizationStatus = useAppSelector(useMemo(() => getAuthorizationStatus, []));
+  const currentUser = useAppSelector(useMemo(() => getCurrentUser, []));
 
   return (
     <nav className="header__nav">
