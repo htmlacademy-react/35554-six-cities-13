@@ -2,7 +2,7 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AppDispatch, State} from '../types/state';
 import {AxiosInstance} from 'axios';
 import {FullOffer, Offer, Offers} from '../types/offer';
-import {APIRoute, AppRoute} from '../const';
+import {APIRoute, AppRoute, StatusFavorite} from '../const';
 import {redirectToRoute} from './action';
 import {AuthData} from '../types/auth-data';
 import {UserData} from '../types/user-data';
@@ -65,6 +65,19 @@ export const fetchFavorites = createAsyncThunk<Offers, undefined, {
   'favorites/fetchFavorites',
   async (_arg, {extra: api}) => {
     const {data} = await api.get<Offers>(APIRoute.Favorites);
+
+    return data;
+  }
+);
+
+export const changeFavoriteStatus = createAsyncThunk<Offers, {offerId: string}, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'favorites, changeFavoriteStatus',
+  async ({offerId}, {extra: api}) => {
+    const {data} = await api.post<Offers>(`${APIRoute.Favorites}/${offerId}/${StatusFavorite.AddFavorite}`);
 
     return data;
   }

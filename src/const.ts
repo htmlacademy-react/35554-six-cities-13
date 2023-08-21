@@ -54,8 +54,12 @@ export enum APIRoute {
 export enum NameSpace {
   Data = 'DATA',
   App = 'APP',
-  Offer = 'OFFER',
   User = 'USER',
+}
+
+export enum StatusFavorite {
+  AddFavorite = '1',
+  DeleteFavorite = '0',
 }
 
 export {CITIES};

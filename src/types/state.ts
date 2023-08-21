@@ -19,6 +19,7 @@ export type DataProcess = {
   offer: FullOffer | null;
   offersNearby: Offers;
   reviews: TReviews;
+  favorites: Offers;
   isOffersDataLoading: boolean;
   isOfferLoading: boolean;
   isReviewPosted: boolean;
