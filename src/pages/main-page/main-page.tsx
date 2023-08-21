@@ -3,7 +3,6 @@ import Map from '../../components/map/map';
 import {useCallback, useState} from 'react';
 import {useAppSelector} from '../../hooks';
 import OffersEmpty from '../../components/offers-empty/offers-empty';
-import Sorting from '../../components/sorting/sorting';
 import cn from 'classnames';
 import {TSorting} from '../../types/offer';
 import {SortingOffers} from '../../const';
@@ -12,7 +11,7 @@ import {getCity} from '../../store/app-process/selectors';
 import {getOffers} from '../../store/data-process/selectors';
 import HeaderMemo from '../../components/header/header';
 import LocationsMemo from '../../components/locations/locations';
-import SortingMemo from "../../components/sorting/sorting";
+import SortingMemo from '../../components/sorting/sorting';
 
 function MainPage(): JSX.Element {
   // const dispatch = useAppDispatch();
