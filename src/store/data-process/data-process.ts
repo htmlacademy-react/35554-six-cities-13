@@ -2,7 +2,7 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {NameSpace} from '../../const';
 import {DataProcess} from '../../types/state';
 import {
-  addFavoriteStatus, changeFavoriteStatus,
+  changeFavoriteStatus,
   fetchFavorites,
   fetchOffer,
   fetchOffersAction,
@@ -64,10 +64,11 @@ export const dataProcess = createSlice({
       .addCase(changeFavoriteStatus.fulfilled, (state, action) => {
         state.favorites.push(action.payload);
         const updatedOffer = action.payload;
-        state.offers = state.offers.map((offer) => offer.id === updatedOffer.id ? updatedOffer : offer);
         if (!updatedOffer.isFavorite) {
           state.favorites = state.favorites.filter((offer) => offer.id !== updatedOffer.id);
         }
+
+        state.offers = state.offers.map((offer) => offer.id === updatedOffer.id ? updatedOffer : offer);
       })
       .addCase(postNewReviewAction.fulfilled, (state, action) =>{
         state.reviews = [...state.reviews, action.payload];

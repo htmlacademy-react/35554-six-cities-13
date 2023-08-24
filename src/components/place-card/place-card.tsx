@@ -41,7 +41,12 @@ function PlaceCard({item, classNameBlock, onMouseEnter, onMouseLeave, size = 'la
 
       <div className={`${classNameBlock}__image-wrapper place-card__image-wrapper`}>
         <Link to={`${AppRoute.Offer}/${id}`}>
-          <img className="place-card__image" src={previewImage} {...sizeImageOptions[size]} alt="Place image"/>
+          <img
+            className="place-card__image"
+            src={previewImage}
+            {...sizeImageOptions[size]}
+            alt="Place image"
+          />
         </Link>
       </div>
       <div className="place-card__info">

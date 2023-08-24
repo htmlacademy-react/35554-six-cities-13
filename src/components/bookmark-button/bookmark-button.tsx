@@ -1,10 +1,11 @@
 import {useNavigate} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
-import {AppRoute, AuthorizationStatus} from '../../const';
+import {AppRoute, AuthorizationStatus, StatusFavorite} from '../../const';
 import {changeFavoriteStatus} from '../../store/api-actions';
 import cn from 'classnames';
 import {SizeOptions} from '../../types/offer';
+import {useState} from "react";
 
 type BookmarkButtonProps = {
   offerId: string;
@@ -22,22 +23,25 @@ function BookmarkButton({offerId, isFavorite, classNameBlock, size = 'small'}: B
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const [isFavoriteOffer, setIsFavoriteOffer] = useState<boolean>(isFavorite);
 
   const handleBookmarkButtonClick = () => {
-    if (authorizationStatus === AuthorizationStatus.Auth) {
-      dispatch(changeFavoriteStatus({
-        offerId: offerId,
-        status: Number(!isFavorite)
-      }));
-    } else {
+    if (authorizationStatus !== AuthorizationStatus.Auth) {
       navigate(AppRoute.Login);
+      return;
     }
+
+    setIsFavoriteOffer((prevIsFavoriteOffer) =>!prevIsFavoriteOffer);
+
+    dispatch(changeFavoriteStatus({
+      offerId: offerId,
+      status: Number(!isFavoriteOffer ? StatusFavorite.Add : StatusFavorite.Delete),
+    }));
   };
   return (
     <button
-      className={cn(`${classNameBlock}__bookmark-button`, 'button', {
-        [`${classNameBlock}__bookmark-button--active`]: isFavorite
-      })}
+      className={cn(`${classNameBlock}__bookmark-button`, 'button', isFavoriteOffer &&
+        `${classNameBlock}__bookmark-button--active`)}
       type="button"
       onClick={handleBookmarkButtonClick}
     >

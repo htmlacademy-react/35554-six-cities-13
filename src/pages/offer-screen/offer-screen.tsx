@@ -10,6 +10,7 @@ import BookmarkButton from '../../components/bookmark-button/bookmark-button';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import {getIsOfferLoading, getOffer, getOffersNearby, getReviews} from '../../store/data-process/selectors';
 import {fetchOffer, fetchOffersNearby, fetchReviews} from '../../store/api-actions';
+import cn from 'classnames';
 import {getRating} from '../../utils/offers';
 import {MAX_COUNT_OFFERS_NEARBY, TypeHousing} from '../../const';
 
@@ -84,10 +85,10 @@ function OfferScreen(): JSX.Element {
                   {TypeHousing[type]}
                 </li>
                 <li className="offer__feature offer__feature--bedrooms">
-                  {bedrooms} Bedrooms
+                  {bedrooms} {bedrooms > 1 ? 'Bedrooms' : 'Bedroom'}
                 </li>
                 <li className="offer__feature offer__feature--adults">
-                  Max {maxAdults} adults
+                  Max {maxAdults} {maxAdults > 1 ? 'adults' : 'adult'}
                 </li>
               </ul>
               <div className="offer__price">
@@ -105,7 +106,9 @@ function OfferScreen(): JSX.Element {
               <div className="offer__host">
                 <h2 className="offer__host-title">Meet the host</h2>
                 <div className="offer__host-user user">
-                  <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
+                  <div className={cn('offer__avatar-wrapper user__avatar-wrapper', {
+                    'offer__avatar-wrapper--pro': isPro})}
+                  >
                     <img className="offer__avatar user__avatar" src={avatarUrl} width={74} height={74}
                       alt="Host avatar"
                     />
