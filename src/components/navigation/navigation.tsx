@@ -1,8 +1,8 @@
 import {AppRoute, AuthorizationStatus} from '../../const';
-import {Fragment, useMemo} from 'react';
+import {Fragment, useEffect, useMemo} from 'react';
 import {Link} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {logoutAction} from '../../store/api-actions';
+import {fetchFavorites, logoutAction} from '../../store/api-actions';
 import {getAuthorizationStatus, getCurrentUser} from '../../store/user-process/selectors';
 import {getFavoriteOffers} from '../../store/data-process/selectors';
 
@@ -11,6 +11,10 @@ function Navigation(): JSX.Element {
   const authorizationStatus = useAppSelector(useMemo(() => getAuthorizationStatus, []));
   const currentUser = useAppSelector(useMemo(() => getCurrentUser, []));
   const favorites = useAppSelector(getFavoriteOffers);
+
+  useEffect(() => {
+    dispatch(fetchFavorites());
+  }, [dispatch]);
 
   return (
     <nav className="header__nav">

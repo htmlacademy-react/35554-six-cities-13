@@ -49,6 +49,4 @@ function Sorting({selectedSorting, onTypeClick}: SortingProps):JSX.Element {
   );
 }
 
-const SortingMemo = memo(Sorting);
-
-export default SortingMemo;
+export default memo(Sorting);

@@ -41,6 +41,9 @@ export type FullOffer = Offer & {
   maxAdults: number;
 };
 
-export type FullOffers = FullOffer[];
+export type SizeOptions = {
+  small: {width: string; height: string};
+  large: {width: string; height: string};
+};
 
 export type TSorting = keyof typeof SortingOffers;

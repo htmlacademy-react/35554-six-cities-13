@@ -1,16 +1,17 @@
 import {useParams} from 'react-router-dom';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {useEffect} from 'react';
 import PlaceCard from '../../components/place-card/place-card';
 import Reviews from '../../components/reviews/reviews';
 import Map from '../../components/map/map';
-import {getRating} from '../../utils/offers';
-import {useAppDispatch, useAppSelector} from '../../hooks';
-import {useEffect} from 'react';
-import {fetchOffer, fetchOffersNearby, fetchReviews} from '../../store/api-actions';
-import NotFoundScreen from '../not-found-screen/not-found-screen';
 import Spinner from '../../components/spinner/spinner';
-import {MAX_COUNT_OFFERS_NEARBY} from '../../const';
+import Header from '../../components/header/header';
+import BookmarkButton from '../../components/bookmark-button/bookmark-button';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
 import {getIsOfferLoading, getOffer, getOffersNearby, getReviews} from '../../store/data-process/selectors';
-import HeaderMemo from '../../components/header/header';
+import {fetchOffer, fetchOffersNearby, fetchReviews} from '../../store/api-actions';
+import {getRating} from '../../utils/offers';
+import {MAX_COUNT_OFFERS_NEARBY, TypeHousing} from '../../const';
 
 function OfferScreen(): JSX.Element {
   const {offerId} = useParams();
@@ -43,7 +44,7 @@ function OfferScreen(): JSX.Element {
 
   return (
     <div className="page">
-      <HeaderMemo />
+      <Header isNavigation />
 
       <main className="page__main page__main--offer">
         <section className="offer">
@@ -64,17 +65,12 @@ function OfferScreen(): JSX.Element {
                 </div>}
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">{title}</h1>
-                <button
-                  className={isFavorite
-                    ? 'offer__bookmark-button offer__bookmark-button--active button'
-                    : 'offer__bookmark-button button'}
-                  type="button"
-                >
-                  <svg className="offer__bookmark-icon" width={31} height={33}>
-                    <use xlinkHref="#icon-bookmark"></use>
-                  </svg>
-                  <span className="visually-hidden">To bookmarks</span>
-                </button>
+                <BookmarkButton
+                  offerId={offerId}
+                  isFavorite={isFavorite}
+                  classNameBlock={'offer'}
+                  size={'large'}
+                />
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
@@ -85,7 +81,7 @@ function OfferScreen(): JSX.Element {
               </div>
               <ul className="offer__features">
                 <li className="offer__feature offer__feature--entire">
-                  {type}
+                  {TypeHousing[type]}
                 </li>
                 <li className="offer__feature offer__feature--bedrooms">
                   {bedrooms} Bedrooms
@@ -114,18 +110,11 @@ function OfferScreen(): JSX.Element {
                       alt="Host avatar"
                     />
                   </div>
-                  <span className="offer__user-name">
-                    {name}
-                  </span>
-                  {isPro &&
-                    <span className="offer__user-status">
-                      Pro
-                    </span>}
+                  <span className="offer__user-name">{name}</span>
+                  {isPro && <span className="offer__user-status">Pro</span>}
                 </div>
                 <div className="offer__description">
-                  <p className="offer__text">
-                    {description}
-                  </p>
+                  <p className="offer__text">{description}</p>
                 </div>
               </div>
               <Reviews offerId={offerId} reviews={reviews} />
@@ -144,7 +133,7 @@ function OfferScreen(): JSX.Element {
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
               {offersNearbyToShow.map((offer) => (
-                <PlaceCard key={offer.id} item={offer} className={'near-places'} />))}
+                <PlaceCard key={offer.id} item={offer} classNameBlock={'near-places'} />))}
             </div>
           </section>
         </div>

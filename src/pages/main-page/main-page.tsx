@@ -9,12 +9,11 @@ import {SortingOffers} from '../../const';
 import {sorting} from '../../utils/offers';
 import {getCity} from '../../store/app-process/selectors';
 import {getOffers} from '../../store/data-process/selectors';
-import HeaderMemo from '../../components/header/header';
-import LocationsMemo from '../../components/locations/locations';
-import SortingMemo from '../../components/sorting/sorting';
+import Locations from '../../components/locations/locations';
+import Header from '../../components/header/header';
+import Sorting from '../../components/sorting/sorting';
 
 function MainPage(): JSX.Element {
-  // const dispatch = useAppDispatch();
   const activeCity = useAppSelector(getCity);
   const offers = useAppSelector(getOffers);
 
@@ -35,7 +34,7 @@ function MainPage(): JSX.Element {
 
   return (
     <div className="page page--gray page--main">
-      <HeaderMemo />
+      <Header isNavigation />
 
       <main className={cn('page__main page__main--index', {
         'page__main--index-empty': !offersByActiveCity.length
@@ -43,7 +42,7 @@ function MainPage(): JSX.Element {
       >
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
-          <LocationsMemo location={activeCity} />
+          <Locations location={activeCity} />
         </div>
         <div className="cities">
           {offersByActiveCity.length
@@ -54,7 +53,7 @@ function MainPage(): JSX.Element {
                 <b className="places__found">
                   {offersByActiveCity.length} places to stay in {activeCity}
                 </b>
-                <SortingMemo
+                <Sorting
                   selectedSorting={selectedSorting}
                   onTypeClick={(sort) => setSelectedSorting(sort)}
                 />

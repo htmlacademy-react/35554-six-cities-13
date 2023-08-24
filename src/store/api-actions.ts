@@ -70,14 +70,14 @@ export const fetchFavorites = createAsyncThunk<Offers, undefined, {
   }
 );
 
-export const changeFavoriteStatus = createAsyncThunk<Offers, {offerId: string}, {
+export const changeFavoriteStatus = createAsyncThunk<Offer, {offerId: string; status: number}, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'favorites, changeFavoriteStatus',
-  async ({offerId}, {extra: api}) => {
-    const {data} = await api.post<Offers>(`${APIRoute.Favorites}/${offerId}/${StatusFavorite.AddFavorite}`);
+  async ({offerId, status}, {extra: api}) => {
+    const {data} = await api.post<Offer>(`${APIRoute.Favorites}/${offerId}/${status}`);
 
     return data;
   }

@@ -1,23 +1,23 @@
-import {Offer} from '../../types/offer';
+import {Offer, SizeOptions} from '../../types/offer';
 import {Link} from 'react-router-dom';
-import {AppRoute} from '../../const';
+import {AppRoute, TypeHousing} from '../../const';
 import {getRating} from '../../utils/offers';
+import BookmarkButton from '../bookmark-button/bookmark-button';
 
 type PlaceCardProps = {
   item: Offer;
-  className: string;
+  classNameBlock: string;
   onMouseEnter?: (id: string) => void;
   onMouseLeave?: () => void;
+  size?: string;
 };
 
-const typeHousing = {
-  apartment: 'Apartment',
-  room: 'Private Room',
-  house: 'House',
-  hotel: 'Hotel',
-} as const;
+const sizeImageOptions: SizeOptions = {
+  small: {width: '150', height: '110'},
+  large: {width: '260', height: '200'},
+};
 
-function PlaceCard({item, className, onMouseEnter, onMouseLeave}: PlaceCardProps): JSX.Element {
+function PlaceCard({item, classNameBlock, onMouseEnter, onMouseLeave, size = 'large'}: PlaceCardProps): JSX.Element {
   const {id, type, title, isPremium, isFavorite, price, previewImage, rating} = item;
 
   const handleMouseEnter = () => {
@@ -30,7 +30,7 @@ function PlaceCard({item, className, onMouseEnter, onMouseLeave}: PlaceCardProps
 
   return (
     <article
-      className={`${className}__card place-card`}
+      className={`${classNameBlock}__card place-card`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -39,9 +39,9 @@ function PlaceCard({item, className, onMouseEnter, onMouseLeave}: PlaceCardProps
           <span>Premium</span>
         </div>}
 
-      <div className={`${className}__image-wrapper place-card__image-wrapper`}>
+      <div className={`${classNameBlock}__image-wrapper place-card__image-wrapper`}>
         <Link to={`${AppRoute.Offer}/${id}`}>
-          <img className="place-card__image" src={previewImage} width={260} height={200} alt="Place image"/>
+          <img className="place-card__image" src={previewImage} {...sizeImageOptions[size]} alt="Place image"/>
         </Link>
       </div>
       <div className="place-card__info">
@@ -50,15 +50,11 @@ function PlaceCard({item, className, onMouseEnter, onMouseLeave}: PlaceCardProps
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={isFavorite
-            ? 'place-card__bookmark-button place-card__bookmark-button--active button'
-            : 'place-card__bookmark-button button'} type="button"
-          >
-            <svg className="place-card__bookmark-icon" width={18} height={19}>
-              <use xlinkHref="#icon-bookmark"></use>
-            </svg>
-            <span className="visually-hidden">To bookmarks</span>
-          </button>
+          <BookmarkButton
+            offerId={id}
+            isFavorite={isFavorite}
+            classNameBlock={'place-card'}
+          />
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
@@ -69,7 +65,7 @@ function PlaceCard({item, className, onMouseEnter, onMouseLeave}: PlaceCardProps
         <h2 className="place-card__name">
           <Link to={`${AppRoute.Offer}/${id}`}>{title}</Link>
         </h2>
-        <p className="place-card__type">{typeHousing[type]}</p>
+        <p className="place-card__type">{TypeHousing[type]}</p>
       </div>
     </article>
   );

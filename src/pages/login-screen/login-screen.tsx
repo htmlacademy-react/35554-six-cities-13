@@ -1,9 +1,9 @@
-import Logo from '../../components/logo/logo';
 import {FormEvent, useRef, useState} from 'react';
 import {useAppDispatch} from '../../hooks';
 import {loginAction} from '../../store/api-actions';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
+import Header from '../../components/header/header';
 
 function LoginScreen(): JSX.Element {
   const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$/;
@@ -33,15 +33,7 @@ function LoginScreen(): JSX.Element {
 
   return (
     <div className="page page--gray page--login">
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <Logo />
-            </div>
-          </div>
-        </div>
-      </header>
+      <Header />
 
       <main className="page__main page__main--login">
         <div className="page__login-container container">
