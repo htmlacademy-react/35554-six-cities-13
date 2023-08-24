@@ -1,6 +1,6 @@
 export const URL_MARKER_DEFAULT = 'img/pin.svg';
-
 export const URL_MARKER_CURRENT = 'img/pin-active.svg';
+
 export const TILE_LAYER = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
 export const COPYRIGHT = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
 
@@ -54,8 +54,19 @@ export enum APIRoute {
 export enum NameSpace {
   Data = 'DATA',
   App = 'APP',
-  Offer = 'OFFER',
   User = 'USER',
+}
+
+export const TypeHousing = {
+  apartment: 'Apartment',
+  room: 'Private Room',
+  house: 'House',
+  hotel: 'Hotel',
+} as const;
+
+export enum StatusFavorite {
+  Add = '1',
+  Delete = '0',
 }
 
 export {CITIES};

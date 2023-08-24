@@ -1,14 +1,20 @@
 import {AppRoute, AuthorizationStatus} from '../../const';
-import {Fragment, useMemo} from 'react';
+import {Fragment, useEffect, useMemo} from 'react';
 import {Link} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {logoutAction} from '../../store/api-actions';
+import {fetchFavorites, logoutAction} from '../../store/api-actions';
 import {getAuthorizationStatus, getCurrentUser} from '../../store/user-process/selectors';
+import {getFavoriteOffers} from '../../store/data-process/selectors';
 
 function Navigation(): JSX.Element {
   const dispatch = useAppDispatch();
   const authorizationStatus = useAppSelector(useMemo(() => getAuthorizationStatus, []));
   const currentUser = useAppSelector(useMemo(() => getCurrentUser, []));
+  const favorites = useAppSelector(getFavoriteOffers);
+
+  useEffect(() => {
+    dispatch(fetchFavorites());
+  }, [dispatch]);
 
   return (
     <nav className="header__nav">
@@ -21,7 +27,7 @@ function Navigation(): JSX.Element {
                   <div className="header__avatar-wrapper user__avatar-wrapper">
                   </div>
                   <span className="header__user-name user__name">{currentUser?.email}</span>
-                  <span className="header__favorite-count">3</span>
+                  <span className="header__favorite-count">{favorites.length}</span>
                 </Link>
               </li>
               <li className="header__nav-item">

@@ -2,7 +2,11 @@ import Logo from '../logo/logo';
 import Navigation from '../navigation/navigation';
 import {memo} from 'react';
 
-function Header(): JSX.Element {
+type HeaderProps = {
+  isNavigation?: boolean;
+};
+
+function Header({isNavigation}: HeaderProps): JSX.Element {
   return (
     <header className="header">
       <div className="container">
@@ -10,13 +14,11 @@ function Header(): JSX.Element {
           <div className="header__left">
             <Logo />
           </div>
-          <Navigation />
+          {isNavigation && <Navigation />}
         </div>
       </div>
     </header>
   );
 }
 
-const HeaderMemo = memo(Header);
-
-export default HeaderMemo;
+export default memo(Header);

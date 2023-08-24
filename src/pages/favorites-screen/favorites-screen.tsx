@@ -1,56 +1,73 @@
-import {Offers} from '../../types/offer';
-import {CITIES} from '../../const';
 import PlaceCard from '../../components/place-card/place-card';
-import FooterMemo from '../../components/footer/footer';
-import HeaderMemo from '../../components/header/header';
+import {useAppSelector} from '../../hooks';
+import {getFavoriteOffers} from '../../store/data-process/selectors';
+import {Offers} from '../../types/offer';
+import cn from 'classnames';
+import FavoritesEmpty from '../../components/favorites_empty/favorites-empty';
+import Footer from '../../components/footer/footer';
+import {Link} from 'react-router-dom';
+import {AppRoute} from '../../const';
+import Header from '../../components/header/header';
 
-type FavoritesScreenProps = {
-  offers: Offers;
-};
+const getFavoriteOffersByCity = (favorites: Offers) =>
+  favorites.reduce<{ [key: string]: Offers }>((acc, offer) => {
+    const city = offer.city.name;
+    if (!(city in acc)) {
+      acc[city] = [];
+    }
+    acc[city].push(offer);
+    return acc;
+  }, {});
 
-function FavoritesScreen({offers}: FavoritesScreenProps) {
+function FavoritesScreen(): JSX.Element {
+  const favorites = useAppSelector(getFavoriteOffers);
+  const favoritesByCity = getFavoriteOffersByCity(favorites);
+  const favoritesEmpty = favorites.length === 0;
+
   return (
-    <div className="page">
-      <HeaderMemo />
+    <div className={cn('page', {'page--favorites-empty': favoritesEmpty})}>
+      <Header isNavigation/>
 
-      <main className="page__main page__main--favorites">
+      <main className={cn('page__main page__main--favorites',
+        {'page__main--favorites-empty': favoritesEmpty})}
+      >
         <div className="page__favorites-container container">
-          <section className="favorites">
-            <h1 className="favorites__title">Saved listing</h1>
-            <ul className="favorites__list">
-              {CITIES.map((city) => {
-                const offerListByCities = offers.filter((offer) => city === offer.city.name);
-                if (offerListByCities.length !== 0) {
-                  return (
+          <section className={cn('favorites', {'favorites--empty': favoritesEmpty})}>
+            {!favoritesEmpty ?
+              <>
+                <h1 className="favorites__title">Saved listing</h1>
+                <ul className="favorites__list">
+                  {Object.entries(favoritesByCity).map(([city, offers]) => (
                     <li className="favorites__locations-items" key={city}>
                       <div className="favorites__locations locations locations--current">
                         <div className="locations__item">
-                          <a className="locations__item-link" href="#">
+                          <Link className="locations__item-link" to={AppRoute.Root}>
                             <span>{city}</span>
-                          </a>
+                          </Link>
                         </div>
                       </div>
                       <div className="favorites__places">
-                        {offerListByCities.map((offer) => {
-                          if (offer.isFavorite) {
-                            return (
-                              <PlaceCard key={offer.id} item={offer} className={'favorites'}
-                                onMouseEnter={null} onMouseLeave={null}
-                              />
-                            );
-                          }
-                        })}
+                        {offers.map((offer) => (
+                          <PlaceCard
+                            key={offer.id}
+                            item={offer}
+                            classNameBlock={'favorites'}
+                            onMouseEnter={null}
+                            onMouseLeave={null}
+                            size={'small'}
+                          />
+                        ))}
                       </div>
                     </li>
-                  );
-                }
-              })}
-            </ul>
+                  ))}
+                </ul>
+              </>
+              : <FavoritesEmpty/>}
           </section>
         </div>
       </main>
 
-      <FooterMemo />
+      <Footer/>
     </div>
   );
 }

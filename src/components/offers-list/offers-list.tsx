@@ -13,7 +13,7 @@ function OffersList({offers, onCardMouseEnter, onCardMouseLeave}: OffersListProp
       <PlaceCard
         key={offer.id}
         item={offer}
-        className={'cities'}
+        classNameBlock={'cities'}
         onMouseEnter={onCardMouseEnter}
         onMouseLeave={onCardMouseLeave}
       />)

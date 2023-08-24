@@ -1,13 +1,22 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {NameSpace} from '../../const';
 import {DataProcess} from '../../types/state';
-import {fetchOffer, fetchOffersAction, fetchOffersNearby, fetchReviews, postNewReviewAction} from '../api-actions';
+import {
+  changeFavoriteStatus,
+  fetchFavorites,
+  fetchOffer,
+  fetchOffersAction,
+  fetchOffersNearby,
+  fetchReviews,
+  postNewReviewAction
+} from '../api-actions';
 
 const initialState: DataProcess = {
   offers: [],
   offer: null,
   offersNearby: [],
   reviews: [],
+  favorites: [],
   isOffersDataLoading: false,
   isOfferLoading: false,
   isReviewPosted: false,
@@ -48,6 +57,18 @@ export const dataProcess = createSlice({
       })
       .addCase(fetchOffersNearby.fulfilled, (state, action) => {
         state.offersNearby = action.payload;
+      })
+      .addCase(fetchFavorites.fulfilled, (state, action) => {
+        state.favorites = action.payload;
+      })
+      .addCase(changeFavoriteStatus.fulfilled, (state, action) => {
+        state.favorites.push(action.payload);
+        const updatedOffer = action.payload;
+        if (!updatedOffer.isFavorite) {
+          state.favorites = state.favorites.filter((offer) => offer.id !== updatedOffer.id);
+        }
+
+        state.offers = state.offers.map((offer) => offer.id === updatedOffer.id ? updatedOffer : offer);
       })
       .addCase(postNewReviewAction.fulfilled, (state, action) =>{
         state.reviews = [...state.reviews, action.payload];
