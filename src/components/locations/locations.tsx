@@ -6,15 +6,16 @@ import {changeCity} from '../../store/app-process/app-process';
 import {memo} from 'react';
 
 type LocationsProps = {
+  locations: string[];
   location: string;
 };
 
-function Locations({location}: LocationsProps):JSX.Element {
+function Locations({locations, location}: LocationsProps):JSX.Element {
   const dispatch = useAppDispatch();
   return (
     <section className="locations container">
       <ul className="locations__list tabs__list">
-        {CITIES.map((city) => (
+        {locations.map((city) => (
           <li className="locations__item" key={city}>
             <Link
               className={cn('locations__item-link tabs__item', {'tabs__item--active': location === city})}

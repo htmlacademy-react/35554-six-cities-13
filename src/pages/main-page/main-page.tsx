@@ -16,6 +16,8 @@ import Sorting from '../../components/sorting/sorting';
 function MainPage(): JSX.Element {
   const activeCity = useAppSelector(getCity);
   const offers = useAppSelector(getOffers);
+  const locations = [...new Set(offers.map((offer) => offer.city.name))];
+  console.log(locations)
 
   const [selectedSorting, setSelectedSorting] = useState<TSorting>(SortingOffers.Popular);
 
@@ -42,7 +44,7 @@ function MainPage(): JSX.Element {
       >
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
-          <Locations location={activeCity} />
+          <Locations locations={locations} location={activeCity} />
         </div>
         <div className="cities">
           {offersByActiveCity.length
