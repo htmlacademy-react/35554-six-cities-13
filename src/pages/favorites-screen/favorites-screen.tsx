@@ -9,8 +9,8 @@ import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import Header from '../../components/header/header';
 
-const getFavoriteOffersByCity = (favorites: Offers) => {
-  return favorites.reduce<{ [key: string]: Offers }>((acc, offer) => {
+const getFavoriteOffersByCity = (favorites: Offers) =>
+  favorites.reduce<{ [key: string]: Offers }>((acc, offer) => {
     const city = offer.city.name;
     if (!(city in acc)) {
       acc[city] = [];
@@ -18,7 +18,6 @@ const getFavoriteOffersByCity = (favorites: Offers) => {
     acc[city].push(offer);
     return acc;
   }, {});
-};
 
 function FavoritesScreen(): JSX.Element {
   const favorites = useAppSelector(getFavoriteOffers);
@@ -27,7 +26,7 @@ function FavoritesScreen(): JSX.Element {
 
   return (
     <div className={cn('page', {'page--favorites-empty': favoritesEmpty})}>
-      <Header isNavigation={true} />
+      <Header isNavigation/>
 
       <main className={cn('page__main page__main--favorites',
         {'page__main--favorites-empty': favoritesEmpty})}

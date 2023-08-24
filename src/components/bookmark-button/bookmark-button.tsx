@@ -5,7 +5,7 @@ import {AppRoute, AuthorizationStatus, StatusFavorite} from '../../const';
 import {changeFavoriteStatus} from '../../store/api-actions';
 import cn from 'classnames';
 import {SizeOptions} from '../../types/offer';
-import {useState} from "react";
+import {useState} from 'react';
 
 type BookmarkButtonProps = {
   offerId: string;
