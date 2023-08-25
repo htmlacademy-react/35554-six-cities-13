@@ -21,6 +21,14 @@ const CITIES = [
 
 export const DEFAULT_CITY = CITIES[0];
 
+export const RATING_REVIEW = [
+  'perfect',
+  'good',
+  'not bad',
+  'badly',
+  'terribly',
+];
+
 export enum AppRoute {
   Root = '/',
   Login = '/login',

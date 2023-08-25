@@ -21,9 +21,6 @@ export const getOffersNearby = (state: State): Offers =>
 export const getReviews = (state: State): TReviews =>
   state[NameSpace.Data].reviews;
 
-export const getIsReviewPosted = (state: State): boolean =>
-  state[NameSpace.Data].isReviewPosted;
-
 export const getFavoriteOffers = (state: State): Offers =>
   state[NameSpace.Data].favorites;
 

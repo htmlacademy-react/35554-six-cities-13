@@ -17,12 +17,12 @@ function MainPage(): JSX.Element {
   const activeCity = useAppSelector(getCity);
   const offers = useAppSelector(getOffers);
   const locations = [...new Set(offers.map((offer) => offer.city.name))];
-  console.log(locations)
 
   const [selectedSorting, setSelectedSorting] = useState<TSorting>(SortingOffers.Popular);
 
   const offersByActiveCity = offers.filter((offer) => offer.city.name === activeCity);
   const offersBySorting = sorting[selectedSorting](offersByActiveCity);
+  const offersLength = offersByActiveCity.length;
 
   const [selectedOffer, setSelectedOffer] = useState<string | null>(null);
 
@@ -39,7 +39,7 @@ function MainPage(): JSX.Element {
       <Header isNavigation />
 
       <main className={cn('page__main page__main--index', {
-        'page__main--index-empty': !offersByActiveCity.length
+        'page__main--index-empty': !offersLength
       })}
       >
         <h1 className="visually-hidden">Cities</h1>
@@ -47,13 +47,13 @@ function MainPage(): JSX.Element {
           <Locations locations={locations} location={activeCity} />
         </div>
         <div className="cities">
-          {offersByActiveCity.length
+          {offersLength
             ?
             <div className="cities__places-container container">
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
                 <b className="places__found">
-                  {offersByActiveCity.length} places to stay in {activeCity}
+                  {offersLength} {offersLength > 1 ? 'places' : 'place'} to stay in {activeCity}
                 </b>
                 <Sorting
                   selectedSorting={selectedSorting}

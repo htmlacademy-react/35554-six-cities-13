@@ -1,7 +1,7 @@
 import {ChangeEvent, FormEvent, Fragment, useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {postNewReviewAction} from '../../store/api-actions';
-import {MAX_COMMENT_LENGTH, MIN_COMMENT_LENGTH} from '../../const';
+import {MAX_COMMENT_LENGTH, MIN_COMMENT_LENGTH, RATING_REVIEW} from '../../const';
 import {getIsReviewPosted} from '../../store/data-process/selectors';
 import {setReviewPostedStatus} from '../../store/data-process/data-process';
 
@@ -11,19 +11,14 @@ type FormReviewsProps = {
 
 function FormReviews({offerId}: FormReviewsProps): JSX.Element {
   const dispatch = useAppDispatch();
-  const ratingValues = [5, 4, 3, 2, 1,];
   const [detailsReview, setDetailsReview] = useState({
     rating: 0,
     comment: '',
     offerId: offerId,
   });
-  const isReviewPosted = useAppSelector(getIsReviewPosted);
+
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const onReviewSubmit = (rating: number, comment: string) => {
-    dispatch(postNewReviewAction({offerId, comment, rating}));
-  };
 
   const isFormValid = detailsReview.rating !== 0 && detailsReview.comment.length >= MIN_COMMENT_LENGTH
     && detailsReview.comment.length <= MAX_COMMENT_LENGTH;
@@ -36,16 +31,14 @@ function FormReviews({offerId}: FormReviewsProps): JSX.Element {
     }
 
     setIsSubmitting(true);
-
-    onReviewSubmit(detailsReview.rating, detailsReview.comment);
-
-    if (isReviewPosted) {
-      (evt.currentTarget as HTMLFormElement).reset();
+    dispatch(postNewReviewAction({
+      offerId,
+      comment: detailsReview.comment,
+      rating: detailsReview.rating
+    })).then(() => {
+      setIsSubmitting(false);
       setDetailsReview({rating: 0, comment: '', offerId});
-      dispatch(setReviewPostedStatus(false));
-    }
-
-    setIsSubmitting(false);
+    });
   };
 
   useEffect(() => {
@@ -65,28 +58,44 @@ function FormReviews({offerId}: FormReviewsProps): JSX.Element {
     >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
-        {ratingValues.map((ratingValue) => (
-          <Fragment key={ratingValue}>
-            <input
-              className="form__rating-input visually-hidden"
-              name="rating"
-              value={ratingValue}
-              id={`${ratingValue}-stars`}
-              type="radio"
-              onChange={(evt:ChangeEvent<HTMLInputElement>) =>
-                setDetailsReview({...detailsReview, rating: Number(evt.target.value)})}
-            />
-            <label htmlFor={`${ratingValue}-stars`} className="reviews__rating-label form__rating-label" title="perfect">
-              <svg className="form__star-image" width={37} height={33}>
-                <use xlinkHref="#icon-star"></use>
-              </svg>
-            </label>
-          </Fragment>
-        ))}
+        {RATING_REVIEW.map((value, index,) => {
+          const currentIndex = RATING_REVIEW.length - index;
+          return (
+            <Fragment key={currentIndex}>
+              <input
+                className="form__rating-input visually-hidden"
+                name="rating"
+                value={currentIndex}
+                id={`${currentIndex}-stars`}
+                type="radio"
+                checked={+detailsReview.rating === currentIndex}
+                disabled={isSubmitting}
+                required
+                onChange={(evt:ChangeEvent<HTMLInputElement>) =>
+                  setDetailsReview({...detailsReview, rating: Number(evt.target.value)})}
+              />
+              <label
+                htmlFor={`${currentIndex}-stars`}
+                className="reviews__rating-label form__rating-label"
+                title={value}
+              >
+                <svg className="form__star-image" width={37} height={33}>
+                  <use xlinkHref="#icon-star"></use>
+                </svg>
+              </label>
+            </Fragment>
+          );
+        })}
       </div>
 
-      <textarea className="reviews__textarea form__textarea" id="review" name="review"
+      <textarea
+        className="reviews__textarea form__textarea"
+        id="review"
+        name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
+        value={detailsReview.comment}
+        required
+        disabled={isSubmitting}
         onChange={(evt:ChangeEvent<HTMLTextAreaElement>) =>
           setDetailsReview({...detailsReview, comment: evt.target.value})}
       >
@@ -99,9 +108,9 @@ function FormReviews({offerId}: FormReviewsProps): JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={isSubmitDisabled || isSubmitting}
+          disabled={isSubmitDisabled || isSubmitting || !isFormValid}
         >
-          Submit
+          {isSubmitting ? 'Sending...' : 'Submit'}
         </button>
       </div>
     </form>
