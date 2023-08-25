@@ -5,14 +5,13 @@ import {Link} from 'react-router-dom';
 import {AppRoute, CITIES} from '../../const';
 import Header from '../../components/header/header';
 import {getRandomElement} from '../../utils/offers';
-import {changeCity} from "../../store/app-process/app-process";
+import {changeCity} from '../../store/app-process/app-process';
 
 function LoginScreen(): JSX.Element {
   const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$/;
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const randomCity = getRandomElement(CITIES);
-  console.log(randomCity)
 
   const dispatch = useAppDispatch();
 

@@ -1,9 +1,7 @@
 import {ChangeEvent, FormEvent, Fragment, useEffect, useState} from 'react';
-import {useAppDispatch, useAppSelector} from '../../hooks';
+import {useAppDispatch} from '../../hooks';
 import {postNewReviewAction} from '../../store/api-actions';
 import {MAX_COMMENT_LENGTH, MIN_COMMENT_LENGTH, RATING_REVIEW} from '../../const';
-import {getIsReviewPosted} from '../../store/data-process/selectors';
-import {setReviewPostedStatus} from '../../store/data-process/data-process';
 
 type FormReviewsProps = {
   offerId: string;
