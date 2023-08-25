@@ -2,13 +2,17 @@ import {FormEvent, useRef, useState} from 'react';
 import {useAppDispatch} from '../../hooks';
 import {loginAction} from '../../store/api-actions';
 import {Link} from 'react-router-dom';
-import {AppRoute} from '../../const';
+import {AppRoute, CITIES} from '../../const';
 import Header from '../../components/header/header';
+import {getRandomElement} from '../../utils/offers';
+import {changeCity} from "../../store/app-process/app-process";
 
 function LoginScreen(): JSX.Element {
   const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$/;
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
+  const randomCity = getRandomElement(CITIES);
+  console.log(randomCity)
 
   const dispatch = useAppDispatch();
 
@@ -77,8 +81,12 @@ function LoginScreen(): JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <Link className="locations__item-link" to={AppRoute.Root}>
-                <span>Paris</span>
+              <Link
+                className="locations__item-link"
+                to={AppRoute.Root}
+                onClick={() => dispatch(changeCity(randomCity))}
+              >
+                <span>{randomCity}</span>
               </Link>
             </div>
           </section>

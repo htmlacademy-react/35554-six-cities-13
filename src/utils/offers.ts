@@ -35,4 +35,10 @@ export const sorting: Record<TSorting, (offers: Offers) => Offers> = {
   TopRatedFirst: (offers: Offers) => offers.slice().sort(sortByRating),
 };
 
+export const getRandomElement = (array: string[]) => {
+  const randomIndex = Math.floor(Math.random() * array.length);
+
+  return array[randomIndex];
+};
+
 export {getRefineDate, getRefineFullDate, getRating};
