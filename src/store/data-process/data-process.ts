@@ -1,4 +1,4 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {createSlice} from '@reduxjs/toolkit';
 import {NameSpace} from '../../const';
 import {DataProcess} from '../../types/state';
 import {
@@ -19,18 +19,13 @@ const initialState: DataProcess = {
   favorites: [],
   isOffersDataLoading: false,
   isOfferLoading: false,
-  isReviewPosted: false,
   hasError: false,
 };
 
 export const dataProcess = createSlice({
   name: NameSpace.Data,
   initialState,
-  reducers: {
-    setReviewPostedStatus: (state, action: PayloadAction<boolean>) => {
-      state.isReviewPosted = action.payload;
-    }
-  },
+  reducers: {},
   extraReducers(builder) {
     builder
       .addCase(fetchOffersAction.pending, (state) => {
