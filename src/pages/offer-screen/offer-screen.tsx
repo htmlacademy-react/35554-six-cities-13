@@ -5,7 +5,6 @@ import PlaceCard from '../../components/place-card/place-card';
 import Reviews from '../../components/reviews/reviews';
 import Map from '../../components/map/map';
 import Spinner from '../../components/spinner/spinner';
-import Header from '../../components/header/header';
 import BookmarkButton from '../../components/bookmark-button/bookmark-button';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import {getIsOfferLoading, getOffer, getOffersNearby, getReviews} from '../../store/data-process/selectors';
@@ -13,6 +12,7 @@ import {fetchOffer, fetchOffersNearby, fetchReviews} from '../../store/api-actio
 import cn from 'classnames';
 import {getRating} from '../../utils/offers';
 import {MAX_COUNT_OFFERS_NEARBY, TypeHousing} from '../../const';
+import HeaderMemo from '../../components/header/header';
 
 function OfferScreen(): JSX.Element {
   const {offerId} = useParams();
@@ -45,7 +45,7 @@ function OfferScreen(): JSX.Element {
 
   return (
     <div className="page">
-      <Header isNavigation />
+      <HeaderMemo isNavigation />
 
       <main className="page__main page__main--offer">
         <section className="offer">

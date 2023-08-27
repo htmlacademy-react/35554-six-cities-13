@@ -1,5 +1,5 @@
 import {AppRoute, AuthorizationStatus} from '../../const';
-import {Fragment, useEffect, useMemo} from 'react';
+import {Fragment, memo, useEffect, useMemo} from 'react';
 import {Link} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {fetchFavorites, logoutAction} from '../../store/api-actions';
@@ -13,8 +13,10 @@ function Navigation(): JSX.Element {
   const favorites = useAppSelector(getFavoriteOffers);
 
   useEffect(() => {
-    dispatch(fetchFavorites());
-  }, [dispatch]);
+    if (authorizationStatus === AuthorizationStatus.Auth) {
+      dispatch(fetchFavorites());
+    }
+  }, [dispatch, authorizationStatus]);
 
   return (
     <nav className="header__nav">
@@ -58,4 +60,6 @@ function Navigation(): JSX.Element {
   );
 }
 
-export default Navigation;
+const NavigationMemo = memo(Navigation);
+
+export default NavigationMemo;

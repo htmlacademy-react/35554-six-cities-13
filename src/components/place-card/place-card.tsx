@@ -7,9 +7,9 @@ import BookmarkButton from '../bookmark-button/bookmark-button';
 type PlaceCardProps = {
   item: Offer;
   classNameBlock: string;
-  onMouseEnter?: (id: string) => void;
-  onMouseLeave?: () => void;
-  size?: string;
+  onMouseEnter?: ((id: string) => void) | null;
+  onMouseLeave?: (() => void) | null;
+  size?: keyof SizeOptions;
 };
 
 const sizeImageOptions: SizeOptions = {

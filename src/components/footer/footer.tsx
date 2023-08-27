@@ -12,6 +12,6 @@ function Footer(): JSX.Element {
   );
 }
 
-// const FooterMemo = memo(Footer);
+const FooterMemo = memo(Footer);
 
-export default memo(Footer);
+export default FooterMemo;

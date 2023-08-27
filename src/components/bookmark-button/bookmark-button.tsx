@@ -11,7 +11,7 @@ type BookmarkButtonProps = {
   offerId: string;
   isFavorite: boolean;
   classNameBlock: string;
-  size?: string;
+  size?: keyof SizeOptions;
 };
 
 const sizeBookmarkOptions: SizeOptions = {

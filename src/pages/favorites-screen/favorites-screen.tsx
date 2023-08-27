@@ -1,23 +1,14 @@
 import PlaceCard from '../../components/place-card/place-card';
 import {useAppSelector} from '../../hooks';
 import {getFavoriteOffers} from '../../store/data-process/selectors';
-import {Offers} from '../../types/offer';
 import cn from 'classnames';
 import FavoritesEmpty from '../../components/favorites_empty/favorites-empty';
-import Footer from '../../components/footer/footer';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
-import Header from '../../components/header/header';
+import HeaderMemo from '../../components/header/header';
+import FooterMemo from '../../components/footer/footer';
+import {getFavoriteOffersByCity} from '../../utils/offers';
 
-const getFavoriteOffersByCity = (favorites: Offers) =>
-  favorites.reduce<{ [key: string]: Offers }>((acc, offer) => {
-    const city = offer.city.name;
-    if (!(city in acc)) {
-      acc[city] = [];
-    }
-    acc[city].push(offer);
-    return acc;
-  }, {});
 
 function FavoritesScreen(): JSX.Element {
   const favorites = useAppSelector(getFavoriteOffers);
@@ -26,7 +17,7 @@ function FavoritesScreen(): JSX.Element {
 
   return (
     <div className={cn('page', {'page--favorites-empty': favoritesEmpty})}>
-      <Header isNavigation/>
+      <HeaderMemo isNavigation/>
 
       <main className={cn('page__main page__main--favorites',
         {'page__main--favorites-empty': favoritesEmpty})}
@@ -67,7 +58,7 @@ function FavoritesScreen(): JSX.Element {
         </div>
       </main>
 
-      <Footer/>
+      <FooterMemo/>
     </div>
   );
 }
