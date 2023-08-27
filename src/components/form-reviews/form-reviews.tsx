@@ -1,7 +1,7 @@
 import {ChangeEvent, FormEvent, Fragment, useEffect, useState} from 'react';
 import {useAppDispatch} from '../../hooks';
 import {postNewReviewAction} from '../../store/api-actions';
-import {MAX_COMMENT_LENGTH, MIN_COMMENT_LENGTH, RATING_REVIEW} from '../../const';
+import {MAX_COMMENT_LENGTH, MIN_COMMENT_LENGTH, RATING_VALUES} from '../../const';
 
 type FormReviewsProps = {
   offerId: string;
@@ -56,8 +56,8 @@ function FormReviews({offerId}: FormReviewsProps): JSX.Element {
     >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
-        {RATING_REVIEW.map((value, index,) => {
-          const currentIndex = RATING_REVIEW.length - index;
+        {RATING_VALUES.map((value, index,) => {
+          const currentIndex = RATING_VALUES.length - index;
           return (
             <Fragment key={currentIndex}>
               <input

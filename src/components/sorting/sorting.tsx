@@ -39,7 +39,7 @@ function Sorting({selectedSorting, onTypeClick}: SortingProps):JSX.Element {
             className={cn('places__option', {'places__option--active': type === selectedSorting})}
             key={type}
             tabIndex={0}
-            onClick={() => handleTypeSortingClick(type)}
+            onClick={() => handleTypeSortingClick(type as TSorting)}
           >
             {value}
           </li>
@@ -49,4 +49,6 @@ function Sorting({selectedSorting, onTypeClick}: SortingProps):JSX.Element {
   );
 }
 
-export default memo(Sorting);
+const SortingMemo = memo(Sorting);
+
+export default SortingMemo;

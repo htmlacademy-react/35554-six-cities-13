@@ -1,26 +1,33 @@
 import {FormEvent, useRef, useState} from 'react';
-import {useAppDispatch} from '../../hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks';
 import {loginAction} from '../../store/api-actions';
-import {Link} from 'react-router-dom';
-import {AppRoute, CITIES} from '../../const';
-import Header from '../../components/header/header';
+import {Link, Navigate} from 'react-router-dom';
+import {AppRoute, AuthorizationStatus, CITIES} from '../../const';
 import {getRandomElement} from '../../utils/offers';
 import {changeCity} from '../../store/app-process/app-process';
+import {getAuthorizationStatus} from '../../store/user-process/selectors';
+import HeaderMemo from '../../components/header/header';
+
+const PASSWORD_REGEX = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!@#$%^&*]+$/;
 
 function LoginScreen(): JSX.Element {
-  const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$/;
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const randomCity = getRandomElement(CITIES);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   const dispatch = useAppDispatch();
 
   const [isActiveInput, setIsActiveInput] = useState<boolean>(false);
   const [isPasswordValid, setIsPasswordValid] = useState<boolean>(false);
 
+  if (authorizationStatus === AuthorizationStatus.Auth) {
+    return (<Navigate to={AppRoute.Root} />);
+  }
+
   const handlePasswordChange = () => {
     setIsActiveInput(true);
-    setIsPasswordValid(passwordRegex.test(passwordRef.current?.value as string || ''));
+    setIsPasswordValid(PASSWORD_REGEX.test(passwordRef.current?.value as string || ''));
   };
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
@@ -36,7 +43,7 @@ function LoginScreen(): JSX.Element {
 
   return (
     <div className="page page--gray page--login">
-      <Header />
+      <HeaderMemo />
 
       <main className="page__main page__main--login">
         <div className="page__login-container container">

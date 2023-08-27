@@ -30,4 +30,6 @@ function Locations({location}: LocationsProps):JSX.Element {
   );
 }
 
-export default memo(Locations);
+const LocationsMemo = memo(Locations);
+
+export default LocationsMemo;

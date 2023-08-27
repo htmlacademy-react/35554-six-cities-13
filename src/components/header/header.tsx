@@ -1,6 +1,6 @@
-import Logo from '../logo/logo';
-import Navigation from '../navigation/navigation';
 import {memo} from 'react';
+import NavigationMemo from '../navigation/navigation';
+import LogoMemo from '../logo/logo';
 
 type HeaderProps = {
   isNavigation?: boolean;
@@ -12,13 +12,15 @@ function Header({isNavigation}: HeaderProps): JSX.Element {
       <div className="container">
         <div className="header__wrapper">
           <div className="header__left">
-            <Logo />
+            <LogoMemo />
           </div>
-          {isNavigation && <Navigation />}
+          {isNavigation && <NavigationMemo />}
         </div>
       </div>
     </header>
   );
 }
 
-export default memo(Header);
+const HeaderMemo = memo(Header);
+
+export default HeaderMemo;

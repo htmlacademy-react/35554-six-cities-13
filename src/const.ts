@@ -21,7 +21,7 @@ const CITIES = [
 
 export const DEFAULT_CITY = CITIES[0];
 
-export const RATING_REVIEW = [
+export const RATING_VALUES = [
   'perfect',
   'good',
   'not bad',
