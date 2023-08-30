@@ -82,7 +82,13 @@ function LoginScreen(): JSX.Element {
                 {isActiveInput && !isPasswordValid &&
                   <p>Password is incorrect, it must consist of the one letter and a number.</p>}
               </div>
-              <button className="login__submit form__submit button" type="submit">Sign in</button>
+              <button
+                className="login__submit form__submit button"
+                type="submit"
+                disabled={!isPasswordValid}
+              >
+                Sign in
+              </button>
             </form>
           </section>
           <section className="locations locations--login locations--current">

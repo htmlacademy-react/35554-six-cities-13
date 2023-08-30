@@ -10,7 +10,7 @@ const DateFormat = {
 export const getRefineDate = (date: string) => date && dayjs(date).format(DateFormat.DATE_SHORT);
 export const getRefineFullDate = (date: string) => date && dayjs(date).format(DateFormat.DATE_FULL);
 
-export const getRating = (rating: number) => Math.floor(rating) * 20;
+export const getRating = (rating: number) => Math.round(rating) * 20;
 
 export const sortByDay = (a: Review, b: Review) => {
   if (dayjs(b.date).isAfter(dayjs(a.date))) {

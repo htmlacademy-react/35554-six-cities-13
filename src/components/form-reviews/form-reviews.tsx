@@ -1,7 +1,9 @@
 import {ChangeEvent, FormEvent, Fragment, useEffect, useState} from 'react';
-import {useAppDispatch} from '../../hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks';
 import {postNewReviewAction} from '../../store/api-actions';
-import {MAX_COMMENT_LENGTH, MIN_COMMENT_LENGTH, RATING_VALUES} from '../../const';
+import {CommentLength, RATING_VALUES} from '../../const';
+import {getIsReviewPosted} from '../../store/data-process/selectors';
+import {setReviewPostedStatus} from '../../store/data-process/data-process';
 
 type FormReviewsProps = {
   offerId: string;
@@ -17,9 +19,10 @@ function FormReviews({offerId}: FormReviewsProps): JSX.Element {
 
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const isReviewPosted = useAppSelector(getIsReviewPosted);
 
-  const isFormValid = detailsReview.rating !== 0 && detailsReview.comment.length >= MIN_COMMENT_LENGTH
-    && detailsReview.comment.length <= MAX_COMMENT_LENGTH;
+  const isFormValid = detailsReview.rating !== 0 && detailsReview.comment.length >= CommentLength.Min
+    && detailsReview.comment.length <= CommentLength.Max;
 
   const handleFormReviewSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
@@ -35,7 +38,6 @@ function FormReviews({offerId}: FormReviewsProps): JSX.Element {
       rating: detailsReview.rating
     })).then(() => {
       setIsSubmitting(false);
-      setDetailsReview({rating: 0, comment: '', offerId});
     });
   };
 
@@ -46,6 +48,13 @@ function FormReviews({offerId}: FormReviewsProps): JSX.Element {
       setIsSubmitDisabled(true);
     }
   }, [isFormValid]);
+
+  useEffect(() => {
+    if (isReviewPosted) {
+      setDetailsReview({rating: 0, comment: '', offerId});
+      dispatch(setReviewPostedStatus(null));
+    }
+  }, [isReviewPosted, offerId, dispatch]);
 
   return (
     <form

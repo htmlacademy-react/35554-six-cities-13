@@ -7,7 +7,7 @@ import {redirectToRoute} from './action';
 import {AuthData} from '../types/auth-data';
 import {UserData} from '../types/user-data';
 import {dropToken, saveToken} from '../services/token';
-import {ReviewForm, TReviews} from '../types/reviews';
+import {Review, ReviewForm, TReviews} from '../types/reviews';
 
 export const fetchOffersAction = createAsyncThunk<Offers, undefined, {
   dispatch: AppDispatch;
@@ -121,7 +121,7 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   },
 );
 
-export const postNewReviewAction = createAsyncThunk<void, {offerId: string; comment: string; rating: number}, {
+export const postNewReviewAction = createAsyncThunk<Review, {offerId: string; comment: string; rating: number}, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
