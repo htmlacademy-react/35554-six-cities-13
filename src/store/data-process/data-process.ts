@@ -1,4 +1,4 @@
-import {createSlice} from '@reduxjs/toolkit';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {NameSpace} from '../../const';
 import {DataProcess} from '../../types/state';
 import {
@@ -19,13 +19,18 @@ const initialState: DataProcess = {
   favorites: [],
   isOffersDataLoading: false,
   isOfferLoading: false,
+  isReviewPosted: false,
   hasError: false,
 };
 
 export const dataProcess = createSlice({
   name: NameSpace.Data,
   initialState,
-  reducers: {},
+  reducers: {
+    setReviewPostedStatus: (state, action: PayloadAction<boolean> | null) => {
+      state.isReviewPosted = action.payload;
+    }
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchOffersAction.pending, (state) => {
@@ -47,6 +52,9 @@ export const dataProcess = createSlice({
         state.offer = action.payload;
         state.isOfferLoading = false;
       })
+      .addCase(fetchOffer.rejected, (state) => {
+        state.isOfferLoading = false;
+      })
       .addCase(fetchReviews.fulfilled, (state, action) => {
         state.reviews = action.payload;
       })
@@ -65,7 +73,10 @@ export const dataProcess = createSlice({
 
         state.offers = state.offers.map((offer) => offer.id === updatedOffer.id ? updatedOffer : offer);
       })
-      .addCase(postNewReviewAction.fulfilled, (state, action) =>{
+      .addCase(postNewReviewAction.rejected, (state) => {
+        state.isReviewPosted = false;
+      })
+      .addCase(postNewReviewAction.fulfilled, (state, action) => {
         state.reviews = [...state.reviews, action.payload];
         state.isReviewPosted = true;
       });

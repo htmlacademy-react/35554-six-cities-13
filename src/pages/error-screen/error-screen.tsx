@@ -5,7 +5,7 @@ function ErrorScreen(): JSX.Element {
   const dispatch = useAppDispatch();
 
   return (
-    <>
+    <div className="container">
       <p className="error__text">Не удалось загрузить предложения об аренде</p>
       <button
         onClick={() => {
@@ -16,7 +16,7 @@ function ErrorScreen(): JSX.Element {
       >
         Попробовать ещё раз
       </button>
-    </>
+    </div>
   );
 }
 

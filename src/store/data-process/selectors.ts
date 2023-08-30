@@ -24,5 +24,8 @@ export const getReviews = (state: State): TReviews =>
 export const getFavoriteOffers = (state: State): Offers =>
   state[NameSpace.Data].favorites;
 
+export const getIsReviewPosted = (state: State): boolean =>
+  state[NameSpace.Data].isReviewPosted;
+
 export const getErrorStatus = (state: State): boolean =>
   state[NameSpace.Data].hasError;

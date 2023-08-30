@@ -1,21 +1,15 @@
 import {Link} from 'react-router-dom';
+import styles from './not-found-screen.module.css';
+import {AppRoute} from '../../const';
 
 function NotFoundScreen(): JSX.Element {
   return (
-    <div className="page page--gray page--main">
-      <section className="page__main container" style={{textAlign: 'center'}}>
-        <h1 style={{fontSize: '3em'}}>Ошибка</h1>
-        <img src="img/404-error.svg" alt="404 error" width="250" height="250"/>
-        <p>Oops! The page you&apos;re looking for doesn&apos;t exist.</p>
-        <Link className="button" to={'/'}
-          style={{
-            marginTop: '20px',
-            padding: '10px 25px',
-            backgroundColor: '#4481c3',
-            color: '#ffffff'
-          }}
-        >Back Home
-        </Link>
+    <div className="page page--gray page--main container">
+      <section className={styles.container}>
+        <h1 className={styles.title}>Error</h1>
+        <img src="img/404-error.svg" alt="404 error" width={250} height={250}/>
+        <p className={styles.text}>Oops! The page you&apos;re looking for doesn&apos;t exist.</p>
+        <Link className={styles.button} to={AppRoute.Root}>Back Home</Link>
       </section>
     </div>
   );

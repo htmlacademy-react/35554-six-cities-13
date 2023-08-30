@@ -1,0 +1,28 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+  padding-top: 100px;
+}
+
+.title {
+  margin: 0 0 30px;
+  font-size: 72px;
+}
+
+.text {
+  font-size: 32px;
+}
+
+.button {
+  margin-top: 20px;
+  padding: 10px 25px;
+  background-color: #4481c3;
+  color: #ffffff;
+  font-size: 28px;
+}
+
+.button:hover {
+  background-color: #236bb9;
+}
