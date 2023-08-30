@@ -79,10 +79,3 @@ export enum StatusFavorite {
   Add = '1',
   Delete = '0',
 }
-
-export enum Status {
-  Idle = 'idle',
-  Loading = 'loading',
-  Success = 'success',
-  Error = 'error'
-}
